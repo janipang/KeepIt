@@ -329,7 +329,7 @@
     "@react-types/breadcrumbs" "3.7.5"
     "@react-types/shared" "3.23.1"
 
-"@nextui-org/button@2.0.37":
+"@nextui-org/button@2.0.37", "@nextui-org/button@^2.0.37":
   version "2.0.37"
   resolved "https://registry.yarnpkg.com/@nextui-org/button/-/button-2.0.37.tgz#a85397a748adfbc9fc8e5365b2a608b6c00f7720"
   integrity sha512-dBtdO30qfu+K4YYLNmmpUy16Q82H1ucY8A4NjP4iEAJ1sPunoAYvba7h9xabrpUKW9IOyItOThSesxsfpaXYug==
@@ -346,7 +346,7 @@
     "@react-types/button" "3.9.4"
     "@react-types/shared" "3.23.1"
 
-"@nextui-org/calendar@2.0.11":
+"@nextui-org/calendar@2.0.11", "@nextui-org/calendar@^2.0.11":
   version "2.0.11"
   resolved "https://registry.yarnpkg.com/@nextui-org/calendar/-/calendar-2.0.11.tgz#0117c071f8e79cd49261fc43d8675f84ee85ca55"
   integrity sha512-pgCEekJHSr5QKxpJaABIFS2ItqgK8qZ7pKrCOJjmRHBh4Y9WGfndrIW6z3IkHZiO01CKJbpjb9ytTjufsU6kIA==
@@ -901,7 +901,7 @@
     "@react-aria/utils" "3.24.1"
     "@react-stately/utils" "3.10.1"
 
-"@nextui-org/table@2.0.39":
+"@nextui-org/table@2.0.39", "@nextui-org/table@^2.0.39":
   version "2.0.39"
   resolved "https://registry.yarnpkg.com/@nextui-org/table/-/table-2.0.39.tgz#ff8b3642a83b587f25a1100cdde645d5e08dc78b"
   integrity sha512-VYvmrQ6GliwmzukKLZ7Nxp3sFXdskWZp8/BjwROLFE9Zco22CC0++7VPG3ebOYAIhi4e1Je+QUTx4/eh2wZZgg==
