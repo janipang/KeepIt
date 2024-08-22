@@ -13,6 +13,7 @@
     "@nextui-org/calendar": "^2.0.11",
     "@nextui-org/react": "^2.4.6",
     "@nextui-org/table": "^2.0.39",
+    "axios": "^1.7.4",
     "framer-motion": "^11.3.28",
     "next": "14.2.5",
     "next-themes": "^0.3.0",
