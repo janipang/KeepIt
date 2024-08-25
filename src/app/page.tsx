@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { ThemeSwitcher } from "@/component/ThemeSwitcher";
 import { Calendar } from "@nextui-org/calendar";
 import {
@@ -22,6 +23,7 @@ interface LabelsMap {
 }
 
 export default function Home() {
+  const router = useRouter();
   const [selectedOption, setSelectedOption] = useState(
     new Set(["merge"])
   );
@@ -98,45 +100,9 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between px-24 py-10">
       <div className="">
-        <ThemeSwitcher />
-        <ButtonGroup variant="flat">
-          <Button>{labelsMap[selectedOptionValue as keyof LabelsMap]}</Button>
-          <Dropdown placement="bottom-end">
-            <DropdownTrigger>
-              <Button>
-                v
-              </Button>
-            </DropdownTrigger>
-            <DropdownMenu
-              disallowEmptySelection
-              aria-label="Merge options"
-              selectedKeys={selectedOption}
-              selectionMode="single"
-              onSelectionChange={()=>setSelectedOption}
-              className="max-w-[300px]"
-            >
-              <DropdownItem key="merge" description={descriptionsMap["merge"]}>
-                {labelsMap["merge"]}
-              </DropdownItem>
-              <DropdownItem
-                key="squash"
-                description={descriptionsMap["squash"]}
-              >
-                {labelsMap["squash"]}
-              </DropdownItem>
-              <DropdownItem
-                key="rebase"
-                description={descriptionsMap["rebase"]}
-              >
-                {labelsMap["rebase"]}
-              </DropdownItem>
-            </DropdownMenu>
-          </Dropdown>
-        </ButtonGroup>
-
-        <h1 className="text-2xl font-extrabold my-6">Our Team</h1>
+        <h1 className="text-2xl font-extrabold mt-10 mb-6">Our Team</h1>
         <Table aria-label="Example table with dynamic content" className="my-6">
           <TableHeader columns={columns}>
             {(column) => (
@@ -153,7 +119,15 @@ export default function Home() {
             )}
           </TableBody>
         </Table>
-        <Calendar className="my-6" calendarWidth={320} visibleMonths={2} />
+        <h1 className="text-2xl font-extrabold mt-10 mb-6">Testing</h1>
+        <div className="flex flex-row gap-6 w-full">
+          <ThemeSwitcher />
+          <Button onClick={() => router.push("/login")}>Verify</Button>
+          <Button onClick={() => router.push("/home")} isDisabled>Home</Button>
+          <Button onClick={() => router.push("/setting")} isDisabled>Setting</Button>
+        </div>
+        <h1 className="text-2xl font-extrabold mt-10 mb-6">Dev Plan</h1>
+        <Calendar calendarWidth={320} visibleMonths={2} />
       </div>
     </main>
   );
