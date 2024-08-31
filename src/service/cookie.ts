@@ -1,16 +1,14 @@
-import Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 
 export const setCookie = (key:string, value:string) => {
-    Cookie.set(key, value, {
-        secure:true
-    });
+    Cookies.set(key, value, { expires: 2 });
 }
 
 export const getCookie = (key:string) => {
-    const data = Cookie.get(key);
+    const data = Cookies.get(key);
     return data
 }
 
 export const removeCookie = (key:string) => {
-    Cookie.remove(key);
+    Cookies.remove(key);
 }

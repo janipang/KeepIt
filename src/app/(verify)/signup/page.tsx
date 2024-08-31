@@ -5,7 +5,7 @@ import { Button } from "@nextui-org/button";
 import User from "@/type/User";
 import { useRouter } from "next/navigation";
 import { postUser, checkUserValid } from "@/service/verify";
-import { setCookie } from "@/service/cookie";
+import { getCookie, setCookie } from "@/service/cookie";
 
 export default function Home() {
   const router = useRouter();
@@ -24,7 +24,9 @@ export default function Home() {
       if (user){
         //sign up success logic here
         setCookie("userId", user.id as string);
+        console.log(user.id)
         setCookie("profileId", user.profileId as string);
+        //cookie did not set
         router.push("/personalinfo")
       }
       else{
