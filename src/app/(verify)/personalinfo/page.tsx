@@ -4,6 +4,7 @@ import { useRouter, useParams } from "next/navigation";
 import { putProfile } from "@/service/verify";
 import Profile from "@/type/Profile";
 import { getCookie } from "@/service/cookie";
+import { Input } from "@nextui-org/input";
 
 export default function PersonalInfo() {
   const router = useRouter();
@@ -33,17 +34,12 @@ export default function PersonalInfo() {
       <div className="p-4 my-4">Your Profile</div>
       <div className="flex flex-col items-start">
         <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
-          <input
-            name="firstName"
-            type="text"
-            placeholder="firstname"
-            required
-          />
-          <input name="lastName" type="text" placeholder="lastname" required />
-          <input name="picture" type="text" placeholder="picture" required />
-          <input name="phone" type="text" placeholder="phone" required />
-          <input name="role" type="text" placeholder="role" required />
-          <input type="submit" value="Submit" />
+          <Input name="firstName" size="md" type="text" label="firstname" isRequired/>
+          <Input name="lastName" size="md" type="text" label="lastName" isRequired/>
+          <Input name="picture" size="md" type="text" label="picture" isRequired/>
+          <Input name="phone" size="md" type="text" label="phone" isRequired/>
+          <Input name="role" size="md" type="text" label="role" isRequired/>
+          <Input type="submit" value="Submit" />
         </form>
       </div>
     </div>

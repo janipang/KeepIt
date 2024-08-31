@@ -511,7 +511,7 @@
     "@nextui-org/shared-utils" "2.0.7"
     "@nextui-org/use-image" "2.0.6"
 
-"@nextui-org/input@2.2.4":
+"@nextui-org/input@2.2.4", "@nextui-org/input@^2.2.4":
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/@nextui-org/input/-/input-2.2.4.tgz#782de39f278ca78c3f8bf61f6088ac832ddd4d85"
   integrity sha512-CVeTwwUJn9pEJC+kq3Jg0nAFeYVGBbIU7U2YFSG8XJK2X75odj8RSQdVd3Dt2U/b5Mtwt5sBh9gMzCedtjffWg==
@@ -888,7 +888,7 @@
     "@react-types/shared" "3.23.1"
     clsx "^1.2.1"
 
-"@nextui-org/system@2.2.5":
+"@nextui-org/system@2.2.5", "@nextui-org/system@^2.2.5":
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/@nextui-org/system/-/system-2.2.5.tgz#e8c5968daf4e5b90a79b889d0b12464fd8182ebb"
   integrity sha512-nrX6768aiyWtpxX3OTFBIVWR+v9nlMsC3KaBinNfek97sNm7gAfTHi7q5kylE3L5yIMpNG+DclAKpuxgDQEmvw==
@@ -941,7 +941,7 @@
     "@react-types/tabs" "3.3.7"
     scroll-into-view-if-needed "3.0.10"
 
-"@nextui-org/theme@2.2.9":
+"@nextui-org/theme@2.2.9", "@nextui-org/theme@^2.2.9":
   version "2.2.9"
   resolved "https://registry.yarnpkg.com/@nextui-org/theme/-/theme-2.2.9.tgz#adecdc069cf62c3337e92d65edc13b1a1210115e"
   integrity sha512-TN2I9sMriLaj00pXsIMlg19+UHeOdjzS2JV0u4gjL14mSbQl5BYNxgbvU3gbMqkZZQ6OpwT4RnT8RS+ks6TXCw==
