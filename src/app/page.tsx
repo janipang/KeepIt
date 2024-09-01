@@ -13,7 +13,7 @@ import {
   TableCell,
   getKeyValue,
 } from "@nextui-org/table";
-import {Button, ButtonGroup, Dropdown, DropdownTrigger, DropdownMenu, DropdownItem} from "@nextui-org/react";
+import { Button } from "@nextui-org/button";
 import { useState } from "react";
 
 interface LabelsMap {

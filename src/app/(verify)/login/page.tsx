@@ -1,6 +1,5 @@
 "use client";
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { getUserByUsername } from "@/service/verify";
 import { Button } from "@nextui-org/button";
@@ -9,10 +8,12 @@ import { Input } from "@nextui-org/input";
 
 export default function Home() {
   const router = useRouter();
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
 
-  const onLogin = async() => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const username = formData.get("username") as string
+    const password = formData.get("password") as string
     if (password == ""){
       alert("enter password");
       return;
@@ -35,15 +36,13 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center m-auto w-4/5 h-2/3 md:w-1/2 md:h-3/4 bg-blue-400">
+    <div className="flex flex-col justify-center items-center m-auto w-4/5 h-2/3 md:w-1/2 md:h-3/4">
       <div className="p-4 my-4">Login</div>
-      <div className="flex flex-col items-center gap-4">
-        {/* <Input name="username" size="md" type="text" label="username" isRequired/>
-        <Input name="password" size="md" type="text" label="password" isRequired/> */}
-        <input placeholder="username" value={username} onChange={e => {setUsername(e.target.value)}} required></input>
-        <input placeholder="password" value={password} onChange={e => {setPassword(e.target.value)}} required></input>
-        <Button onClick={() => onLogin()}>Login</Button>
-      </div>
+        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
+          <Input name="username" size="md" type="text" label="username" isRequired/>
+          <Input name="password" size="md" type="text" label="password" isRequired/>
+          <Input type="submit" value="Submit" />
+        </form>
       <div className="p-4 my-4">Or You Want To Sign Up</div>
       <div className="flex flex-col items-start">
         <Button onClick={() => router.push("/signup")}>SignUp</Button>

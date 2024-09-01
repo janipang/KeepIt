@@ -1,24 +1,24 @@
 "use client";
-import React from "react";
-import { useState, useEffect } from "react";
+import React, { FormEvent } from "react";
 import { Button } from "@nextui-org/button";
-import User from "@/type/User";
-import { useRouter } from "next/navigation";
+import { Input } from "@nextui-org/input";
+import { useRouter } from 'next/navigation';
 import { postUser, checkUserValid } from "@/service/verify";
 import { getCookie, setCookie } from "@/service/cookie";
 
 export default function Home() {
   const router = useRouter();
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-  const onSignUp = async () => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const username = formData.get("username") as string
+    const password = formData.get("password") as string
+    const confirmPassword = formData.get("confirmPassword") as string
     if (password != confirmPassword){
       alert("please make sure to confirm password!")
       return;
     }
-
     if (await (checkUserValid(username)) === false){
       const user = await postUser(username, password);
       if (user){
@@ -26,7 +26,6 @@ export default function Home() {
         setCookie("userId", user.id as string);
         console.log(user.id)
         setCookie("profileId", user.profileId as string);
-        //cookie did not set
         router.push("/personalinfo")
       }
       else{
@@ -39,14 +38,14 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center m-auto w-4/5 h-2/3 md:w-1/2 md:h-3/4 bg-blue-400">
+    <div className="flex flex-col justify-center items-center m-auto w-4/5 h-2/3 md:w-1/2 md:h-3/4">
       <div className="p-4 my-4">SignUp</div>
-      <div className="flex flex-col items-center gap-4">
-        <input placeholder="username" value={username} onChange={e => {setUsername(e.target.value)}}></input>
-        <input placeholder="password" value={password} onChange={e => {setPassword(e.target.value)}}></input>
-        <input placeholder="confirm password" value={confirmPassword} onChange={e => {setConfirmPassword(e.target.value)}}></input>
-        <Button onClick={() => onSignUp()}>SignUp</Button>
-      </div>
+        <form onSubmit={handleSubmit} className="flex flex-col items-center gap-4">
+          <Input name="username" size="md" type="text" label="username" isRequired/>
+          <Input name="password" size="md" type="text" label="password" isRequired/>
+          <Input name="confirmPassword" size="md" type="text" label="confirm password" isRequired/>
+          <Input type="submit" value="Submit" />
+      </form>
     </div>
   );
 }
