@@ -234,11 +234,11 @@ const navData: MenuItem[] = [
                 name: "ใบเสนอราคา",
                 path: "",
                 child: [
-                    { id: 2210, name: "สร้าง", path: "/income", child: [] },
-                    { id: 2220, name: "ยอมรับ", path: "/income", child: [] },
-                    { id: 2230, name: "รอตอบรับ", path: "/income", child: [] },
-                    { id: 2240, name: "พ้นกำหนด", path: "/income", child: [] },
-                    { id: 2250, name: "ดูทั้งหมด", path: "/income", child: [] },
+                    { id: 2210, name: "สร้าง", path: "/income/new", child: [] },
+                    { id: 2220, name: "ยอมรับ", path: "/income/accept", child: [] },
+                    { id: 2230, name: "รอตอบรับ", path: "/income/pending", child: [] },
+                    { id: 2240, name: "พ้นกำหนด", path: "/income/exp", child: [] },
+                    { id: 2250, name: "ดูทั้งหมด", path: "/income/all", child: [] },
                 ],
             },
             {
