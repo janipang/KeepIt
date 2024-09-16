@@ -1,10 +1,9 @@
 "use client";
 import React, { FormEvent } from "react";
-import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import { useRouter } from 'next/navigation';
-import { postUser, checkUserValid } from "@/service/verify";
-import { getCookie, setCookie } from "@/service/cookie";
+import { postUser, checkUserValid } from "@/services/verify";
+import { getCookie, setCookie } from "@/services/cookie";
 
 export default function Home() {
   const router = useRouter();

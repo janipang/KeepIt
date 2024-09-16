@@ -1,4 +1,4 @@
-import NavBar from "@/component/NavBar";
+import { Navbar } from "@/components/navbar";
 
 export default function HomeLayout({
   children,
@@ -7,7 +7,7 @@ export default function HomeLayout({
 }>) {
   return (
     <div className="flex flex-col">
-      <NavBar/>
+      <Navbar/>
       <div>{children}</div>
     </div>
   );

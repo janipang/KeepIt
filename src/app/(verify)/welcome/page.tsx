@@ -3,9 +3,9 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import Image from "next/image";
 import { Button } from "@nextui-org/button";
-import { getCookie } from "@/service/cookie";
-import { getUserById } from "@/service/verify";
-import User from "@/type/User";
+import { getCookie } from "@/services/cookie";
+import { getUserById } from "@/services/verify";
+import User from "@/types/User";
 
 export default function Welcome() {
     const router = useRouter();

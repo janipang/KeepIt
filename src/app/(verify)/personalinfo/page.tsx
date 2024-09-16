@@ -1,9 +1,9 @@
 "use client";
 import React, { FormEvent } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { putProfile } from "@/service/verify";
-import Profile from "@/type/Profile";
-import { getCookie } from "@/service/cookie";
+import { putProfile } from "@/services/verify";
+import Profile from "@/types/Profile";
+import { getCookie } from "@/services/cookie";
 import { Input } from "@nextui-org/input";
 
 export default function PersonalInfo() {

@@ -1,43 +1,46 @@
 "use client";
+
+import {
+  Navbar as NextUINavbar,
+  NavbarContent,
+  NavbarMenu,
+  NavbarMenuToggle,
+  NavbarBrand,
+  NavbarItem,
+  NavbarMenuItem,
+} from "@nextui-org/navbar";
+import { Button } from "@nextui-org/button";
+import { link as linkStyles } from "@nextui-org/theme";
+import NextLink from "next/link";
+import { navData } from "@/constants/navigate";
+import { HamburgerIcon } from "@/components/icons";
 import {
   Dropdown,
-  DropdownTrigger,
-  DropdownMenu,
-  DropdownSection,
   DropdownItem,
-  Avatar,
-} from "@nextui-org/react";
-import {
-  mobileMainNavData,
-  mobileSubNavData,
-  navData,
-} from "@/constant/navigate";
-import { Button } from "@nextui-org/button";
-import MenuItem from "@/type/MenuItem";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
+  DropdownMenu,
+  DropdownTrigger,
+} from "@nextui-org/dropdown";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import MenuItem from "@/types/MenuItem";
 
-const NestedDropdown: React.FC<{ items: MenuItem[] }> = ({ items }) => {
+export const Navbar = () => {
   const router = useRouter();
+  const items: MenuItem[] = navData;
   return (
-    <div className="flex flex-row w-full justify-between px-6 bg-primary">
-      {/* nav group */}
-      <div className="flex flex-row gap-4">
-        <button
-          onClick={() => {
-            router.push("/");
-          }}
-        >
-          <Image
-            src="/logos/klean.png"
-            alt="logo"
-            height={20}
-            width={30}
-            className="w-full h-full"
-          />
-        </button>
-        <nav className="flex flex-row">
+    <NextUINavbar maxWidth="xl" position="sticky">
+      <NavbarContent
+        className="basis-1/5 sm:basis-full"
+        justify="start"
+      >
+        <NavbarBrand as="li" className="gap-3 max-w-fit">
+          <NextLink className="flex justify-start items-center gap-1" href="/">
+            <img src="/logos/k.png" height={24} width={24} />
+            <p className="font-bold text-inherit">Keep</p>
+          </NextLink>
+        </NavbarBrand>
+
+        <nav className="flex flex-row h-full">
           {items.map((item) => {
             if (item.child.length === 0) {
               return (
@@ -48,6 +51,7 @@ const NestedDropdown: React.FC<{ items: MenuItem[] }> = ({ items }) => {
                   onClick={() => {
                     router.push(item.path);
                   }}
+                  className="h-full"
                 >
                   {item.name}
                 </Button>
@@ -62,6 +66,7 @@ const NestedDropdown: React.FC<{ items: MenuItem[] }> = ({ items }) => {
                       onClick={() => {
                         router.push(item.path);
                       }}
+                      className="h-full"
                     >
                       {item.name}
                     </Button>
@@ -74,7 +79,7 @@ const NestedDropdown: React.FC<{ items: MenuItem[] }> = ({ items }) => {
                         ) : (
                           <Dropdown
                             key={`${child.id} dropdown`}
-                            placement="bottom"
+                            placement="right"
                             closeOnSelect={false}
                           >
                             <DropdownTrigger>
@@ -93,7 +98,7 @@ const NestedDropdown: React.FC<{ items: MenuItem[] }> = ({ items }) => {
                                   ) : (
                                     <Dropdown
                                       key={`${child.id} dropdown`}
-                                      placement="bottom"
+                                      placement="right"
                                       closeOnSelect={false}
                                     >
                                       <DropdownTrigger>
@@ -122,57 +127,18 @@ const NestedDropdown: React.FC<{ items: MenuItem[] }> = ({ items }) => {
             }
           })}
         </nav>
-      </div>
-      {/* user group */}
-      <div className="flex flex-row gap-2">
-        <Avatar
-          src="https://i.pravatar.cc/150?u=a04258a2462d826712d"
-          size="sm"
-        />
-        <Avatar
-          src="https://i.pravatar.cc/150?u=a04258a2462d826712d"
-          size="sm"
-        />
-        <Avatar
-          src="https://i.pravatar.cc/150?u=a04258a2462d826712d"
-          size="sm"
-        />
-      </div>
-    </div>
+      </NavbarContent>
+
+      {/* <NavbarContent
+        className="hidden sm:flex basis-1/5 sm:basis-full"
+        justify="end"
+      >
+        <NavbarItem className="hidden md:flex">
+          <button onClick={() => console.log("clicked!")}>
+            <HamburgerIcon className="text-danger" />
+          </button>
+        </NavbarItem>
+      </NavbarContent> */}
+    </NextUINavbar>
   );
 };
-
-function TestNav() {
-  return (
-    <div>
-      <NestedDropdown items={navData} />
-    </div>
-  );
-}
-function MobileNav() {
-  return (
-    <div>
-      <NestedDropdown items={navData} />
-    </div>
-  );
-}
-
-function WindowNav() {
-  return (
-    <div>
-      <NestedDropdown items={navData} />
-    </div>
-  );
-}
-
-export default function NavBar() {
-  return (
-    <>
-      <nav className="w-screen">
-        {/* <MobileNav /> */}
-        {/* <WindowNav /> */}
-        <TestNav />
-      </nav>
-    </>
-  );
-}

@@ -1,9 +1,6 @@
 "use client";
-
 import React from "react";
 import { useRouter } from "next/navigation";
-import { ThemeSwitcher } from "@/component/ThemeSwitcher";
-import { Calendar } from "@nextui-org/calendar";
 import {
   Table,
   TableHeader,
@@ -14,7 +11,7 @@ import {
   getKeyValue,
 } from "@nextui-org/table";
 import { Button } from "@nextui-org/button";
-import { useState } from "react";
+import { Calendar } from "@nextui-org/calendar";
 
 interface LabelsMap {
   merge: string;
@@ -24,25 +21,6 @@ interface LabelsMap {
 
 export default function Home() {
   const router = useRouter();
-  const [selectedOption, setSelectedOption] = useState(
-    new Set(["merge"])
-  );
-
-  const descriptionsMap = {
-    merge:
-      "All commits from the source branch are added to the destination branch via a merge commit.",
-    squash:
-      "All commits from the source branch are added to the destination branch as a single commit.",
-    rebase:
-      "All commits from the source branch are added to the destination branch individually.",
-  };
-
-  const labelsMap:LabelsMap = {
-    merge: "Create a merge commit",
-    squash: "Squash and merge",
-    rebase: "Rebase and merge",
-  };
-  const selectedOptionValue = Array.from(selectedOption)[0];
 
   const rows = [
     {
@@ -121,10 +99,11 @@ export default function Home() {
         </Table>
         <h1 className="text-2xl font-extrabold mt-10 mb-6">Testing</h1>
         <div className="flex flex-row gap-6 w-full">
-          <ThemeSwitcher />
           <Button onClick={() => router.push("/login")}>Verify</Button>
           <Button onClick={() => router.push("/home")}>Home</Button>
-          <Button onClick={() => router.push("/setting")} isDisabled>Setting</Button>
+          <Button onClick={() => router.push("/setting")} isDisabled>
+            Setting
+          </Button>
         </div>
         <h1 className="text-2xl font-extrabold mt-10 mb-6">Dev Plan</h1>
         <Calendar calendarWidth={320} visibleMonths={2} />

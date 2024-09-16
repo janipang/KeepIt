@@ -1,9 +1,9 @@
 "use client";
 import React, { FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import Enterprise from "@/type/Enterprise";
-import { getCookie } from "@/service/cookie";
-import { postEnterprise } from "@/service/enterprise";
+import Enterprise from "@/types/Enterprise";
+import { getCookie } from "@/services/cookie";
+import { postEnterprise } from "@/services/enterprise";
 import { Input } from "@nextui-org/input";
 
 export default function Welcome() {
@@ -22,13 +22,12 @@ export default function Welcome() {
       AdminId: [],
     };
     const new_enterprise = await postEnterprise(enterprise);
-    if (new_enterprise){
-      router.push("/success")
+    if (new_enterprise) {
+      router.push("/success");
+    } else {
+      alert("update profile failed");
     }
-    else{
-      alert("update profile failed")
-    }
-  }
+  };
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-blue-400">
       <h1 className="text-2xl font-extrabold">NEW BUSINESS</h1>

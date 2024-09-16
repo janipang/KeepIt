@@ -1,8 +1,8 @@
-import Profile from "@/type/Profile";
-import User from "@/type/User";
-import Enterprise from "@/type/Enterprise";
+import Profile from "@/types/Profile";
+import User from "@/types/User";
+import Enterprise from "@/types/Enterprise";
 import axios from "axios";
-import { BACKEND_URL } from "@/constant/api";
+import { BACKEND_URL } from "@/constants/api";
 
 export const getEnterprises = async () => {
     try {

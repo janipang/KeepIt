@@ -1,7 +1,7 @@
-import Profile from "@/type/Profile";
-import User from "@/type/User";
+import Profile from "@/types/Profile";
+import User from "@/types/User";
 import axios from "axios";
-import { BACKEND_URL } from "@/constant/api";
+import { BACKEND_URL } from "@/constants/api";
 
 export const getUserByUsername = async (username: string): Promise<User | null> => {
   try {

@@ -1,4 +1,4 @@
-import MenuItem from "@/type/MenuItem";
+import MenuItem from "@/types/MenuItem";
 
 const mobileMainNavData: MenuItem[] = [
     {
