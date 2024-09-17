@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Noto_Sans_Thai } from "next/font/google";
 import "./globals.css";
-import {Providers} from "./providers";
+import { Providers } from "./providers";
+import { Navbar } from "@/components/navbar";
 
 const noto = Noto_Sans_Thai({
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"]
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -22,7 +23,14 @@ export default function RootLayout({
     <html lang="en" className={noto.className}>
       <body>
         <Providers>
-          {children}
+          <Navbar />
+          {/* outter container */}
+          <div className="flex min-h-screen bg-blue-100 px-12 lg:px-20">
+            {/* inner container */}
+            <div className="flex flex-col my-20 flex-grow w-full">
+              {children}
+            </div>
+          </div>
         </Providers>
       </body>
     </html>

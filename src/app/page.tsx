@@ -101,8 +101,11 @@ export default function Home() {
         <div className="flex flex-row gap-6 w-full">
           <Button onClick={() => router.push("/login")}>Verify</Button>
           <Button onClick={() => router.push("/home")}>Home</Button>
+          <Button onClick={() => router.push("/contact")}>
+            Contact
           <Button onClick={() => router.push("/setting")} isDisabled>
             Setting
+          </Button>
           </Button>
         </div>
         <h1 className="text-2xl font-extrabold mt-10 mb-6">Dev Plan</h1>
