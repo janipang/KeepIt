@@ -78,8 +78,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between px-24 py-10">
-      <div className="">
+      <div>
         <h1 className="text-2xl font-extrabold mt-10 mb-6">Our Team</h1>
         <Table aria-label="Example table with dynamic content" className="my-6">
           <TableHeader columns={columns}>
@@ -98,19 +97,19 @@ export default function Home() {
           </TableBody>
         </Table>
         <h1 className="text-2xl font-extrabold mt-10 mb-6">Testing</h1>
-        <div className="flex flex-row gap-6 w-full">
+        <div className="flex flex-row flex-wrap gap-6 w-full">
           <Button onClick={() => router.push("/login")}>Verify</Button>
           <Button onClick={() => router.push("/home")}>Home</Button>
-          <Button onClick={() => router.push("/contact")}>
-            Contact
+          <Button onClick={() => router.push("/contact")}>ผู้ติดต่อ</Button>
+          <Button onClick={() => router.push("/product")} isDisabled>สินค้า</Button>
+          <Button onClick={() => router.push("/financial")} isDisabled>การเงิน</Button>
+          <Button onClick={() => router.push("/docsarchive")} isDisabled>คลังเอกสาร</Button>
           <Button onClick={() => router.push("/setting")} isDisabled>
             Setting
-          </Button>
           </Button>
         </div>
         <h1 className="text-2xl font-extrabold mt-10 mb-6">Dev Plan</h1>
         <Calendar calendarWidth={320} visibleMonths={2} />
       </div>
-    </main>
   );
 }
