@@ -5,7 +5,8 @@ import {
   DropdownTrigger,
 } from "@nextui-org/dropdown";
 import CreateButton from "../button/createButton";
-import IncomeChart from "./chart/incomeChart";
+import IncomeChart from "../chart/incomeChart";
+import OverallChart from "../chart/overallChart";
 
 export default function OverallIncomeExpense() {
   return (
@@ -26,8 +27,8 @@ export default function OverallIncomeExpense() {
           </DropdownMenu>
         </Dropdown>
       </span>
-      <div className="w-full h-full p-4 bg-white flex">
-        <IncomeChart />
+      <div className="flex flex-col w-full h-full p-4 bg-white">
+        <OverallChart/>
       </div>
     </div>
   );

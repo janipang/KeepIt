@@ -5,6 +5,7 @@ import {
   DropdownTrigger,
 } from "@nextui-org/dropdown";
 import CreateButton from "../button/createButton";
+import IncomeChart from "../chart/incomeChart";
 
 export default function IncomeSummary() {
   return (
@@ -13,9 +14,7 @@ export default function IncomeSummary() {
         <h1>รายได้</h1>
         <Dropdown>
           <DropdownTrigger>
-            <CreateButton>
-              ส้รางใบเสร็จรับเงิน
-            </CreateButton>
+            <CreateButton>ส้รางใบเสร็จรับเงิน</CreateButton>
           </DropdownTrigger>
           <DropdownMenu>
             <DropdownItem>ใบเสนอราคา</DropdownItem>
@@ -24,7 +23,9 @@ export default function IncomeSummary() {
           </DropdownMenu>
         </Dropdown>
       </span>
-      <div className="w-full h-full p-4 bg-white flex">component 1</div>
+      <div className="w-full h-full p-4 bg-white flex">
+        <IncomeChart />
+      </div>
     </div>
   );
 }
