@@ -1,7 +1,10 @@
 import { Input } from "@nextui-org/input";
 import { SearchIcon } from "./icons";
+import { InputProps } from "@nextui-org/react"; // Assuming InputProps from Next UI
 
-export default function searchInput() {
+interface SearchInputProps extends InputProps {}
+
+export default function SearchInput({...props }: SearchInputProps) {
   return (
     <Input
       aria-label="Search"
@@ -15,6 +18,7 @@ export default function searchInput() {
         <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
       }
       type="search"
+      {...props}
     />
   );
 }
