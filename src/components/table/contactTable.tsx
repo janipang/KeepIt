@@ -1,5 +1,6 @@
+
 "use client";
-import React, { Key, useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   Table,
   TableHeader,
@@ -14,7 +15,8 @@ import {
 } from "@nextui-org/react";
 import { SearchIcon } from "../icons";
 import { columns, users, UserType } from "@/constants/contact";
-type Selection = "all" | Set<Key>;
+import { Selection } from "@react-types/shared";
+import {Key} from '@react-types/shared';
 
 const INITIAL_VISIBLE_COLUMNS = ["id", "name", "company", "phone", "actions"];
 
@@ -261,7 +263,7 @@ export default function ContactTable() {
         },
       }}
       classNames={classNames}
-      selectedKeys={selectedKeys as "all" | Iterable<Key> | undefined}
+      selectedKeys={selectedKeys as Selection}
       selectionMode="multiple"
       sortDescriptor={sortDescriptor}
       topContent={topContent}

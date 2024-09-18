@@ -1,18 +1,14 @@
 "use client";
 import { PlusIcon } from "@/components/icons";
-import SearchInput from "@/components/searchInput";
 import ContactTable from "@/components/table/contactTable";
 import { Listbox, ListboxItem, cn } from "@nextui-org/react";
 import { Button } from "@nextui-org/button";
 import { useMemo, useState } from "react";
+import {Selection} from "@react-types/shared"
+import {Key} from '@react-types/shared';
 
 export default function Contact() {
-    const [selectedKeys, setSelectedKeys] = useState(new Set(["text"]));
-  
-    const selectedValue = useMemo(
-      () => Array.from(selectedKeys).join(", "),
-      [selectedKeys]
-    );
+    const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set<Key>());
   return (
     <div className="p-4 rounded-lg shadow-lg grid gap-2 grid-cols-[1fr_6fr] grid-rows-[50px_1fr] bg-white">
       <span>ผู้ติดต่อ</span>
