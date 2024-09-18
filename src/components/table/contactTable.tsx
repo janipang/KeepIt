@@ -8,12 +8,6 @@ import {
   TableRow,
   TableCell,
   Input,
-  Button,
-  Chip,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
   User,
   Pagination,
   SortDescriptor,
@@ -47,7 +41,7 @@ export default function ContactTable() {
     if (visibleColumns.size === columns.length) return columns;
 
     return columns.filter((column) => visibleColumns.has(column.uid));
-  }, [visibleColumns, columns]);
+  }, [visibleColumns]);
 
   const filteredItems = useMemo(() => {
     let filteredUsers = [...users];
@@ -65,7 +59,7 @@ export default function ContactTable() {
     }
 
     return filteredUsers;
-  }, [users, nameFilterValue, companyFilterValue]);
+  }, [nameFilterValue, companyFilterValue, hasNameSearchFilter, hasCompanySearchFilter]);
 
   const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
@@ -198,13 +192,9 @@ export default function ContactTable() {
   }, [
     nameFilterValue,
     companyFilterValue,
-    visibleColumns,
     onNameSearchChange,
     onCompanySearchChange,
     onRowsPerPageChange,
-    users.length,
-    hasNameSearchFilter,
-    hasCompanySearchFilter,
   ]);
 
   const bottomContent = useMemo(() => {
@@ -229,7 +219,7 @@ export default function ContactTable() {
         </span>
       </div>
     );
-  }, [selectedKeys, items.length, page, pages, hasNameSearchFilter]);
+  }, [selectedKeys, items.length, page, pages, hasNameSearchFilter, hasCompanySearchFilter]);
 
   const classNames = useMemo(
     () => ({
