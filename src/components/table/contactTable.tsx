@@ -49,17 +49,18 @@ export default function ContactTable() {
     if (hasNameSearchFilter || hasCompanySearchFilter) {
       filteredUsers = filteredUsers.filter(
         (user) =>
-          (nameFilterValue &&
-            user.name.toLowerCase().includes(nameFilterValue.toLowerCase())) ||
-          (companyFilterValue &&
-            user.company
-              .toLowerCase()
-              .includes(companyFilterValue.toLowerCase()))
+          user.name.toLowerCase().includes(nameFilterValue.toLowerCase()) &&
+          user.company.toLowerCase().includes(companyFilterValue.toLowerCase())
       );
     }
 
     return filteredUsers;
-  }, [nameFilterValue, companyFilterValue, hasNameSearchFilter, hasCompanySearchFilter]);
+  }, [
+    nameFilterValue,
+    companyFilterValue,
+    hasNameSearchFilter,
+    hasCompanySearchFilter,
+  ]);
 
   const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
@@ -219,7 +220,14 @@ export default function ContactTable() {
         </span>
       </div>
     );
-  }, [selectedKeys, items.length, page, pages, hasNameSearchFilter, hasCompanySearchFilter]);
+  }, [
+    selectedKeys,
+    items.length,
+    page,
+    pages,
+    hasNameSearchFilter,
+    hasCompanySearchFilter,
+  ]);
 
   const classNames = useMemo(
     () => ({
