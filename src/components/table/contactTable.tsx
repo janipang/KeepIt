@@ -1,5 +1,6 @@
 "use client";
-import React, { Key, useCallback, useMemo, useState } from "react";
+import { Key } from "@react-types/shared";
+import React, { useCallback, useMemo, useState } from "react";
 import {
   Table,
   TableHeader,
@@ -14,14 +15,14 @@ import {
 } from "@nextui-org/react";
 import { SearchIcon } from "../icons";
 import { columns, users, UserType } from "@/constants/contact";
-type Selection = "all" | Set<Key>;
+import { Selection } from "@react-types/shared";
 
 const INITIAL_VISIBLE_COLUMNS = ["id", "name", "company", "phone", "actions"];
 
 export default function ContactTable() {
   const [nameFilterValue, setNameFilterValue] = useState("");
   const [companyFilterValue, setCompanyFilterValue] = useState("");
-  const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set<Key>());
+  const [selectedKeys, setSelectedKeys] = useState<Selection>([]);
   const [visibleColumns, setVisibleColumns] = useState(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
@@ -49,17 +50,18 @@ export default function ContactTable() {
     if (hasNameSearchFilter || hasCompanySearchFilter) {
       filteredUsers = filteredUsers.filter(
         (user) =>
-          (nameFilterValue &&
-            user.name.toLowerCase().includes(nameFilterValue.toLowerCase())) ||
-          (companyFilterValue &&
-            user.company
-              .toLowerCase()
-              .includes(companyFilterValue.toLowerCase()))
+          user.name.toLowerCase().includes(nameFilterValue.toLowerCase()) &&
+          user.company.toLowerCase().includes(companyFilterValue.toLowerCase())
       );
     }
 
     return filteredUsers;
-  }, [nameFilterValue, companyFilterValue, hasNameSearchFilter, hasCompanySearchFilter]);
+  }, [
+    nameFilterValue,
+    companyFilterValue,
+    hasNameSearchFilter,
+    hasCompanySearchFilter,
+  ]);
 
   const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
@@ -215,11 +217,18 @@ export default function ContactTable() {
         <span className="text-small text-default-400">
           {selectedKeys === "all"
             ? "All items selected"
-            : `${selectedKeys.size} of ${items.length} selected`}
+            : `${selectedKeys.length} of ${items.length} selected`}
         </span>
       </div>
     );
-  }, [selectedKeys, items.length, page, pages, hasNameSearchFilter, hasCompanySearchFilter]);
+  }, [
+    selectedKeys,
+    items.length,
+    page,
+    pages,
+    hasNameSearchFilter,
+    hasCompanySearchFilter,
+  ]);
 
   const classNames = useMemo(
     () => ({
@@ -253,7 +262,7 @@ export default function ContactTable() {
         },
       }}
       classNames={classNames}
-      selectedKeys={selectedKeys as "all" | Iterable<Key> | undefined}
+      selectedKeys={selectedKeys as Selection | undefined}
       selectionMode="multiple"
       sortDescriptor={sortDescriptor}
       topContent={topContent}
