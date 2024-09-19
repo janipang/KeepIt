@@ -14,10 +14,12 @@ export default function SelectContactGroup({
 
   useEffect(() => {
     onValueChange(
-      value === "all"
+      value === undefined
+        ? ""
+        : value === "all"
         ? "all"
         : value.size
-        ? (value.entries().next().value[0] as string)
+        ? ((value.entries().next().value?.[0] as string) ?? "")
         : ""
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps

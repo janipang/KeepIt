@@ -7,17 +7,17 @@ interface Props {
   onValueChange: (value: string) => void;
 }
 
-export default function SelectEnterpriseType({
-  onValueChange,
-}: Props) {
+export default function SelectEnterpriseType({ onValueChange }: Props) {
   const [value, setValue] = useState<Selection>(new Set());
 
   useEffect(() => {
     onValueChange(
-      value === "all"
+      value === undefined
+        ? ""
+        : value === "all"
         ? "all"
         : value.size
-        ? (value.entries().next().value[0] as string)
+        ? ((value.entries().next().value?.[0] as string) ?? "")
         : ""
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
