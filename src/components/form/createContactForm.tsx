@@ -4,7 +4,7 @@ import { Divider } from "@nextui-org/divider";
 import { Input } from "@nextui-org/input";
 import SelectContactGroup from "../select/selectContactGroup";
 import { useState } from "react";
-import Contact from "@/types/Contact";
+import { Contact } from "@/types/Contact";
 import { Button } from "@nextui-org/react";
 import EnterpriseIdInput from "../input/enterpriseIdInput";
 import SelectEnterpriseType from "../select/selectEnterpriseType";
@@ -32,14 +32,14 @@ const CreateContactForm: React.FC<Props> = ({
 
   const handleSubmit = async () => {
     const contact: Contact = {
-      group,
-      entpId,
-      headquarter,
-      type,
+      group: group as "customer" | "provider" ,
+      type: type as "personal" | "enterprise",
       name,
       address,
       phone,
       email,
+      entpId: entpId,
+      headquarter: headquarter as "headquarter" | "branch" | "unknown",
     };
     console.log(contact);
     const new_contact = await postContact(contact);

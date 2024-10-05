@@ -1,4 +1,4 @@
-import Contact from "@/types/Contact";
+import { Contact } from "@/types/Contact";
 import axios from "axios";
 import { BACKEND_URL } from "@/constants/api";
 

@@ -1,10 +1,10 @@
 export default interface Enterprise{
     id?: string,
-    registrationNumber: string,
-    taxId: string,
     name: string,
-    ownerId: string,
-    createdTime: Date,
-    documentArchiveId: string,
+    registrationNumber: string, //businessAddress
+    taxId: string,
     AdminId: string[]
+    ownerId: string, // remove
+    documentArchiveId: string,
+    logo?: string;
 }
