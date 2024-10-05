@@ -17,7 +17,6 @@ export default function Welcome() {
       taxId: formData.get("taxId") as string,
       name: formData.get("name") as string,
       ownerId: getCookie("userId") as string,
-      createdTime: new Date(),
       documentArchiveId: "",
       AdminId: [],
     };

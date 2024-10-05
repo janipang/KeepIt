@@ -234,11 +234,11 @@ const navData: MenuItem[] = [
                 name: "ใบเสนอราคา",
                 path: "",
                 child: [
-                    { id: 2210, name: "สร้าง", path: "/income/new", child: [] },
-                    { id: 2220, name: "ยอมรับ", path: "/income/accept", child: [] },
-                    { id: 2230, name: "รอตอบรับ", path: "/income/pending", child: [] },
-                    { id: 2240, name: "พ้นกำหนด", path: "/income/exp", child: [] },
-                    { id: 2250, name: "ดูทั้งหมด", path: "/income/all", child: [] },
+                    { id: 2210, name: "สร้าง", path: "/document/create/quotation", child: [] },
+                    { id: 2220, name: "ยอมรับ", path: "/document/create/quotation", child: [] },
+                    { id: 2230, name: "รอตอบรับ", path: "/document/create/quotation", child: [] },
+                    { id: 2240, name: "พ้นกำหนด", path: "/document/create/quotation", child: [] },
+                    { id: 2250, name: "ดูทั้งหมด", path: "/document/create/quotation", child: [] },
                 ],
             },
             {
@@ -246,11 +246,11 @@ const navData: MenuItem[] = [
                 name: "ใบแจ้งหนี้",
                 path: "",
                 child: [
-                    { id: 2310, name: "สร้าง", path: "/income", child: [] },
-                    { id: 2320, name: "ยอมรับ", path: "/income", child: [] },
-                    { id: 2330, name: "รอตอบรับ", path: "/income", child: [] },
-                    { id: 2340, name: "พ้นกำหนด", path: "/income", child: [] },
-                    { id: 2350, name: "ดูทั้งหมด", path: "/income", child: [] },
+                    { id: 2310, name: "สร้าง", path: "/document/create/invoice", child: [] },
+                    { id: 2320, name: "ยอมรับ", path: "/document/create/invoice", child: [] },
+                    { id: 2330, name: "รอตอบรับ", path: "/document/create/invoice", child: [] },
+                    { id: 2340, name: "พ้นกำหนด", path: "/document/create/invoice", child: [] },
+                    { id: 2350, name: "ดูทั้งหมด", path: "/document/create/invoice", child: [] },
                 ],
             },
             {
@@ -258,19 +258,19 @@ const navData: MenuItem[] = [
                 name: "ใบเสร็จรับเงิน",
                 path: "",
                 child: [
-                    { id: 2410, name: "สร้าง", path: "/income", child: [] },
-                    { id: 2420, name: "ชำระเงินแล้ว", path: "/income", child: [] },
-                    { id: 2430, name: "ดูทั้งหมด", path: "/income", child: [] },
+                    { id: 2410, name: "สร้าง", path: "/document/create/receipt", child: [] },
+                    { id: 2420, name: "ชำระเงินแล้ว", path: "/document/create/receipt", child: [] },
+                    { id: 2430, name: "ดูทั้งหมด", path: "/document/create/receipt", child: [] },
                 ],
             },
             {
                 id: 2500,
-                name: "ใบเสร็จรับเงิน",
+                name: "ใบกำกับภาษี",
                 path: "",
                 child: [
-                    { id: 2510, name: "สร้าง", path: "/income", child: [] },
-                    { id: 2520, name: "ชำระเงินแล้ว", path: "/income", child: [] },
-                    { id: 2530, name: "ดูทั้งหมด", path: "/income", child: [] },
+                    { id: 2510, name: "สร้าง", path: "/document/create/taxinvoice", child: [] },
+                    { id: 2520, name: "ชำระเงินแล้ว", path: "/document/create/taxinvoice", child: [] },
+                    { id: 2530, name: "ดูทั้งหมด", path: "/document/create/taxinvoice", child: [] },
                 ],
             },
         ],
@@ -305,7 +305,7 @@ const navData: MenuItem[] = [
     },{
         id: 4000,
         name: "ผู้ติดต่อ",
-        path: "/more",
+        path: "/contact",
         child: [{
             id: 4100,
             name: "ดูภาพรวม",
@@ -314,13 +314,13 @@ const navData: MenuItem[] = [
         },{
             id: 4200,
             name: "เพิ่มผู้ติดต่อใหม่",
-            path: "/newcontact",
+            path: "/contact/create",
             child: [],
         }],
     },{
         id: 5000,
         name: "สินค้า",
-        path: "",
+        path: "/product",
         child: [{
             id: 5100,
             name: "ดูภาพรวม",
@@ -329,7 +329,7 @@ const navData: MenuItem[] = [
         },{
             id: 5200,
             name: "เพิ่มสินค้า/บริการ",
-            path: "-",
+            path: "/product/create",
             child: [],
         }],
     },{
@@ -392,17 +392,17 @@ const navData: MenuItem[] = [
         name: "ตั้งค่า",
         path: "",
         child: [
-            { id: 8100, name: "อัปเกรด/ต่ออายุ", path: "/income", child: [] },
+            { id: 8100, name: "อัปเกรด/ต่ออายุ", path: "/setting/entend", child: [] },
             {
                 id: 8200,
                 name: "ตั้งค่าองค์กร",
                 path: "",
                 child: [
-                    { id: 8210, name: "ข้อมูลกิจการ", path: "/income", child: [] },
-                    { id: 8220, name: "โลโก้เเละตราประทับ", path: "/income", child: [] },
+                    { id: 8210, name: "ข้อมูลกิจการ", path: "/setting/exterprise", child: [] },
+                    { id: 8220, name: "โลโก้เเละตราประทับ", path: "/setting/logo", child: [] },
                 ],
             },
-            { id: 8300, name: "ตั้งค่าผู้ใช้งาน", path: "/income", child: [] },
+            { id: 8300, name: "ตั้งค่าผู้ใช้งาน", path: "/setting/user", child: [] },
             {
                 id: 8400,
                 name: "ตั้งค่าองค์กร",
@@ -417,7 +417,7 @@ const navData: MenuItem[] = [
     {
         id: 9000,
         name: "คลังเอกสาร",
-        path: "/docsarchive",
+        path: "/document",
         child: [],
     }
 ];

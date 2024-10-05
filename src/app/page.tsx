@@ -101,6 +101,7 @@ export default function Home() {
           <Button onClick={() => router.push("/login")}>Verify</Button>
           <Button onClick={() => router.push("/home")}>Home</Button>
           <Button onClick={() => router.push("/contact")}>ผู้ติดต่อ</Button>
+          <Button onClick={() => router.push("/document/create/quotation")}>ออกใบเสนอราคา</Button>
           <Button onClick={() => router.push("/product")} isDisabled>สินค้า</Button>
           <Button onClick={() => router.push("/financial")} isDisabled>การเงิน</Button>
           <Button onClick={() => router.push("/docsarchive")} isDisabled>คลังเอกสาร</Button>

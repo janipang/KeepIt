@@ -48,7 +48,7 @@ export default function Quotation() {
   };
 
   return (
-    <div className="w-full flex flex-col gap-8 justify-start items-center md:p-6 lg:p-12">
+    <div className="w-full flex flex-col gap-8 justify-start items-center md:p-6 lg:px-12">
       {/* header stepper */}
       <Stepper data={stepper} />
 
@@ -106,7 +106,7 @@ export default function Quotation() {
           <div className="grid grid-cols-[2fr_8fr] gap-4">
             <div className="w-full">ข้อมูลและราคาภาษี</div>
             <div className="grid grid-cols-[1fr_1fr_1fr]">
-              <Select label="ประเภทราคา" className="max-w-xs">
+              <Select label="ประเภทราคา" className="max-w-xs w-full">
                 {price_tax.map((type) => (
                   <SelectItem key={type}>{type}</SelectItem>
                 ))}

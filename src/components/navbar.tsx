@@ -37,7 +37,7 @@ export default function Navbar() {
       >
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-            <img src="/logos/k.png" height={24} width={24} />
+          <Image src="/logos/k.png" alt="logo" height={24} width={24} />
             <p className="font-bold text-inherit">Keep</p>
           </NextLink>
         </NavbarBrand>
@@ -130,17 +130,6 @@ export default function Navbar() {
           })}
         </nav>
       </NavbarContent>
-
-      {/* <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
-        justify="end"
-      >
-        <NavbarItem className="hidden md:flex">
-          <button onClick={() => console.log("clicked!")}>
-            <HamburgerIcon className="text-danger" />
-          </button>
-        </NavbarItem>
-      </NavbarContent> */}
     </NextUINavbar>
   );
 };
