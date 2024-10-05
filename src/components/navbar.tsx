@@ -23,10 +23,12 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import MenuItem from "@/types/MenuItem";
+import Image from "next/image";
 
-export const Navbar = () => {
+export default function Navbar() {
   const router = useRouter();
   const items: MenuItem[] = navData;
+  
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
       <NavbarContent

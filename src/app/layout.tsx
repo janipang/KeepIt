@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Noto_Sans_Thai } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-import { Navbar } from "@/components/navbar";
+// import { Navbar } from "@/components/navbar";
 
 const noto = Noto_Sans_Thai({
   subsets: ["latin"],
@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en" className={noto.className}>
       <body>
         <Providers>
-          <Navbar />
+          {/* <Navbar /> */}
           {/* outter container */}
           <div className="flex min-h-screen bg-blue-100 px-6 md:px-12 lg:px-20">
             {/* inner container */}
