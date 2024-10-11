@@ -1,4 +1,5 @@
 "use client";
+
 import { radioUncheckedIcon } from "@/components/icons";
 import Stepper from "@/components/stepper";
 import { Input } from "@nextui-org/input";
@@ -9,6 +10,7 @@ import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import { QuotationInfo } from "@/types/DocumentInfo";
 import { postQuotation } from "@/services/createDocument";
+import Document from "@/components/document";
 
 export default function Quotation() {
   const router = useRouter();
@@ -48,12 +50,12 @@ export default function Quotation() {
   };
 
   return (
-    <div className="w-full flex flex-col gap-8 justify-start items-center md:p-6 lg:px-12">
+    <div className="w-full flex flex-col gap-8 justify-start items-center p-4 md:p-6 lg:px-12">
       {/* header stepper */}
       <Stepper data={stepper} />
 
       {/* document */}
-      <div className="w-full bg-white rounded-md shadow-lg flex flex-col min-w-[620px] p-6">
+      <Document>
         <form onSubmit={handleSubmit}>
           <div className="flex justify-between">
             <h1 className="text-2xl">สร้างใบเสนอราคา</h1>
@@ -61,6 +63,7 @@ export default function Quotation() {
               name="document_id"
               type="text"
               label="เลขที่เอกสาร"
+              variant="bordered"
               className="w-2/3 max-w-[150px]"
             />
           </div>
@@ -73,29 +76,34 @@ export default function Quotation() {
               <Input
                 name="customer_name"
                 type="text"
-                label="เลขที่เอกสาร"
+                label="ชื่อลูกค้า"
+                variant="bordered"
                 className="w-full"
               />
               <DatePicker
                 name="created_date"
-                label="Birth date"
+                label="วันที่ออก"
+                variant="bordered"
                 className="w-full"
               />
               <DatePicker
-                name="expired_date"
+                name="วันที่ใช้ได้ถึง"
                 label="Birth date"
+                variant="bordered"
                 className="w-full"
               />
               <Input
-                name="customer_address"
+                name="ที่อยู่"
                 type="text"
                 label="ที่อยู่"
+                variant="bordered"
                 className="full"
               />
               <Input
                 name="customer_phone"
                 type="text"
                 label="เบอร์โทร"
+                variant="bordered"
                 className="full"
               />
             </div>
@@ -108,7 +116,9 @@ export default function Quotation() {
             <div className="grid grid-cols-[1fr_1fr_1fr]">
               <Select label="ประเภทราคา" className="max-w-xs w-full">
                 {price_tax.map((type) => (
-                  <SelectItem key={type}>{type}</SelectItem>
+                  <SelectItem key={type} variant="bordered">
+                    {type}
+                  </SelectItem>
                 ))}
               </Select>
             </div>
@@ -116,9 +126,9 @@ export default function Quotation() {
 
           <Divider className="my-4" />
 
-          <Input type="submit" value="Submit" />
+          <Input type="submit" value="Submit" variant="bordered" />
         </form>
-      </div>
+      </Document>
     </div>
   );
 }
