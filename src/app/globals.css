@@ -72,3 +72,25 @@
     @apply bg-background text-foreground;
   }
 }
+
+.box{
+  @apply rounded-lg shadow-small p-4 m-2 w-full flex flex-col gap-2 justify-center items-center;
+}
+
+.loader{
+  box-sizing: border-box;
+  filter: blur(2px);
+  mix-blend-mode: darken;
+  @apply grid gap-2 bg-inherit w-12 h-12 aspect-square p-2.5;
+}
+
+.loader:before,
+.loader:after{ 
+  content: "";
+  grid-area: 1/1; 
+  @apply w-6 h-6 aspect-square bg-primary animate-blob rounded-lg opacity-75
+}
+.loader:after{ 
+  animation-delay: -1s;
+  @apply bg-secondary
+}
