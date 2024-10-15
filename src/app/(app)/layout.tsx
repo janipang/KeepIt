@@ -1,12 +1,5 @@
 import type { Metadata } from 'next';
-import { Noto_Sans_Thai } from 'next/font/google';
-import './globals.css';
-import { Providers } from './providers';
-
-const noto = Noto_Sans_Thai({
-  subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-});
+import Navbar from '@/components/navbar';
 
 export const metadata: Metadata = {
   title: {
@@ -25,10 +18,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={noto.className}>
-      <body>
-        <Providers>{children}</Providers>
-      </body>
-    </html>
+    <>
+      <Navbar />
+      {/* outter container */}
+      <div className="flex min-h-screen bg-blue-100 px-6 md:px-12 lg:px-20">
+        {/* inner container */}
+        <div className="flex flex-col my-20 flex-grow w-full">{children}</div>
+      </div>
+    </>
   );
 }
