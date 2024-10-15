@@ -10,7 +10,7 @@ export interface Contact{
     headquarter?: "headquarter" | "branch" | "unknown";
 }
 
-export interface Product{
+export interface ProductInfo{
     id?: string;
     name: string;
     description: string;
