@@ -6,7 +6,7 @@ interface Props{
 
 export default function Stepper({data} :Props) {
   return (
-    <div className="w-full flex flex-row gap-12">
+    <div className="w-full flex flex-row gap-12 max-w-screen-xl">
       {data.map((text, index) => (
         <Button
           key={index}

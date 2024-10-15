@@ -1,6 +1,6 @@
 'use client';
 
-import { radioUncheckedIcon } from '@/components/icons';
+import { DeleteIcon, PlusIcon } from '@/components/icons';
 import Stepper from '@/components/stepper';
 import { Input, Textarea } from '@nextui-org/input';
 import { Divider } from '@nextui-org/divider';
@@ -13,13 +13,14 @@ import { postQuotation } from '@/services/createDocument';
 import Document from '@/components/document';
 import { Button } from '@nextui-org/react';
 import { products } from '@/constants/mock/product';
-import { ProductInfo } from '@/types/Contact';
-import Loading from '@/components/loading';
+import AnimatedDots from '@/components/animated-dots';
+import ProductEditTable from '@/components/table/product-edit-table';
 
 export default function Quotation() {
   const router = useRouter();
   const stepper = ['ใบเสนอราคา', 'ใบแจ้งหนี้', 'ใบเสร็จรับเงิน', 'ใบกำกับภาษี'];
   const price_tax = ['รวมภาษี', 'ไม่รวมภาษี'];
+  const [discount, stDiscount] = useState<number>(0);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -140,10 +141,16 @@ export default function Quotation() {
               <h3 className="text-gray-600">สินค้า/บริการ</h3>
             </div>
             <div>
-              <ProductTable products={products} />
+              <ProductEditTable products={products} />
               {/* table action group */}
               <div>
-                <Button variant="solid">เพิ่มรายการใหม่</Button>
+                <Button
+                  variant="solid"
+                  color="primary"
+                  startContent={<PlusIcon />}
+                >
+                  เพิ่มรายการใหม่
+                </Button>
               </div>
             </div>
           </div>
@@ -152,11 +159,34 @@ export default function Quotation() {
 
           <div className="grid grid-cols-[2fr_8fr] gap-4">
             <h2 className="w-full">สรุปข้อมูล</h2>
-            <div className="grid grid-cols-[1fr]">
+            <div className="grid grid-cols-[2fr_3fr] gap-4">
+              <div className="w-full flex p-4 justify-between items-center rounded-lg bg-accent-light">
+                <p>ส่วนลดรวม</p>
+                <span className='flex items-center gap-4'>
+                  <p className="text-2xl font-semibold">{discount}</p>
+                  <p>บาท</p>
+                </span>
+              </div>
+              <div className="w-full flex p-4 justify-between items-center rounded-lg bg-primary text-white">
+                <p>จำนวนเงินทั้งสิ้น</p>
+                <span className='flex items-center gap-4'>
+                  <p className="text-2xl font-semibold">{discount}</p>
+                  <p>บาท</p>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <Divider className="my-6" />
+
+          <div className="grid grid-cols-[2fr_8fr] gap-4">
+            <h2 className="w-full">หมายเหตุสำหรับลูกค้า</h2>
+            <div className="grid grid-cols-1">
               <Textarea
-                variant="bordered"
-                label="Description"
-                className="w-full"
+                label="หมายเหตุสำหรับลูกค้า"
+                labelPlacement="outside"
+                placeholder=""
+                defaultValue=""
               />
             </div>
           </div>
@@ -166,13 +196,14 @@ export default function Quotation() {
           <div className="grid grid-cols-[2fr_8fr] gap-4">
             <div className="flex flex-col">
               <h2 className="w-full">แนบไฟล์ในเอกสารนี้</h2>
-              <h3 className="text-gray-600">อัพโหลดไฟล์ pdf หรือ png</h3>
             </div>
-            <div className="grid grid-cols-[1fr]">
+            <div className="grid grid-cols-1">
               <Textarea
-                variant="bordered"
-                label="upload file"
-                className="w-full"
+                isDisabled
+                label="ไฟล์ที่อัปโหลด(สามารถลากไฟล์มาวางในหน้านี้ได้เลย)"
+                labelPlacement="outside"
+                placeholder=""
+                defaultValue=""
               />
             </div>
           </div>
@@ -182,103 +213,17 @@ export default function Quotation() {
           <div className="w-full flex justify-end">
             <div className="grid grid-cols-3 gap-4 max-w-md">
               <Button>ยกเลิก</Button>
-              <Button variant="solid">บันทึกร่าง</Button>
-              <Input type="submit" value="Submit" variant="bordered" />
+              <Button variant="solid" color="secondary">
+                บันทึกร่าง
+              </Button>
+              <Button type="submit" color="primary" variant="solid">
+                อนุมัติใบเสนอราคา
+              </Button>
             </div>
           </div>
         </form>
       </Document>
+      <AnimatedDots />
     </div>
-  );
-}
-
-function ProductTable({ products }: { products: ProductInfo[] }) {
-  const [hydrated, setHydrated] = useState(false);
-
-  useEffect(() => {
-    setHydrated(true);
-  }, []);
-
-  if (!hydrated) {
-    return <Loading />;
-  }
-
-  return (
-    <table>
-      <thead>
-        <tr className="grid grid-cols-[0.5fr_4fr_1fr_1fr_1fr_1fr_1fr] text-left text-sm">
-          <th className="p-2 font-normal" scope="col">
-            ลำดับ
-          </th>
-          <th className="p-2 font-normal" scope="col">
-            สินค้า/บริการ
-          </th>
-          <th className="p-2 font-normal" scope="col">
-            จำนวน
-          </th>
-          <th className="p-2 font-normal" scope="col">
-            ราคา/หน่วย
-          </th>
-          <th className="p-2 font-normal" scope="col">
-            ส่วยลด/หน่วย
-          </th>
-          <th className="p-2 font-normal" scope="col">
-            มูลค่าก่อนภาษี
-          </th>
-          <th className="p-2 font-normal" scope="col">
-            หัก ณ ที่จ่าย
-          </th>
-        </tr>
-      </thead>
-      <tbody className="w-full">
-        <tr className="grid grid-cols-[0.5fr_4fr_1fr_1fr_1fr_1fr_1fr] grid-rows-2">
-          <p className="w-full border-2 border-accent flex items-center justify-center">
-            1{' '}
-          </p>
-          <Select radius="none" variant="bordered" className="max-w-lg w-full">
-            {products.map((product, index) => (
-              <SelectItem key={index} variant="bordered" value={product.id}>
-                {product.name}
-              </SelectItem>
-            ))}
-          </Select>
-          <Input
-            name="amount"
-            type="text"
-            variant="bordered"
-            radius="none"
-            className="w-full row-span-2 "
-          />
-          <Input
-            name="price"
-            type="text"
-            variant="bordered"
-            radius="none"
-            className="w-full row-span-2"
-          />
-          <Input
-            name="discount"
-            type="text"
-            variant="bordered"
-            radius="none"
-            className="w-full row-span-2"
-          />
-          <Input
-            name="real_price"
-            type="text"
-            variant="bordered"
-            radius="none"
-            className="w-full row-span-2"
-          />
-          <Input
-            name="tax"
-            type="text"
-            variant="bordered"
-            radius="none"
-            className="w-full row-span-2"
-          />
-        </tr>
-      </tbody>
-    </table>
   );
 }
