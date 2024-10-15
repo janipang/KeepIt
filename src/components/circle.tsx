@@ -12,7 +12,7 @@ export default function Circle({ diameter, className }: Props) {
         width: `${diameter}`,
       }}
       className={cn(
-        `absolute -z-50 aspect-square origin-center -translate-x-1/2 -translate-y-1/2 rounded-full`,
+        `aspect-square origin-center -translate-x-1/2 -translate-y-1/2 rounded-full`,
         className,
       )}
     ></div>

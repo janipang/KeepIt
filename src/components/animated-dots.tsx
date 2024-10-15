@@ -18,7 +18,7 @@ export default function AnimatedDots() {
       <div className="relative w-2.5">
         <Circle
           diameter="10px"
-          className="-translate-y-0 translate-x-0 animate-loadingDots3 bg-gradient-sunshine"
+          className="border-black -translate-y-0 translate-x-0 animate-loadingDots3 bg-gradient-sunshine"
         />
       </div>
     </div>

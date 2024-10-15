@@ -79,11 +79,11 @@ const config: Config = {
         'gradient-primary':
           'linear-gradient(35deg, rgba(127,127,213,1) 0%, rgba(144,107,242,1) 29%, rgba(145,234,228,1) 100%)',
         'gradient-sweet':
-          'linear-gradient(59deg, rgba(148,187,233,1) 25%, rgba(238,174,202,1) 72%)',
+          'linear-gradient(63deg, rgba(148,187,233,1) 60%, rgba(238,174,202,1) 80%)',
         'gradient-sunshine':
-          'linear-gradient(38deg, rgba(130,168,213,1) 24%, rgba(255,250,75,0.9424083769633508) 100%)',
+          'linear-gradient(-30deg, rgba(148,187,233,1) 50%, rgba(255,250,75,0.9424083769633508) 100%)',
         'gradient-aurora':
-          'linear-gradient(38deg, rgba(106,153,209,1) 38%, rgba(75,255,83,0.9790575916230366) 100%)',
+          'linear-gradient(38deg, rgba(106,153,209,1) 60%, rgba(75,255,83,0.9790575916230366) 100%)',
       },
       opacity: {
         fade: '20%',
