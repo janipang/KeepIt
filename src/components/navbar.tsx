@@ -10,10 +10,8 @@ import {
   NavbarMenuItem,
 } from "@nextui-org/navbar";
 import { Button } from "@nextui-org/button";
-import { link as linkStyles } from "@nextui-org/theme";
 import NextLink from "next/link";
 import { navData } from "@/constants/navigate";
-import { HamburgerIcon } from "@/components/icons";
 import {
   Dropdown,
   DropdownItem,

@@ -13,10 +13,9 @@ export default function Stepper({ type }: Props) {
     {name:'ออกใบกำกับภาษี', path:'/document/create/tax-invoice'}
   ];
   const states_expense = [
-    {name:'ใบเสนอราคา', path:'/document/create/quotation'},
-    {name:'ใบเเจ้งหนี้', path:'/document/create/invoice'},
-    {name:'ใบเสร็จรับเงิน', path:'/document/create/reciept'},
-    {name:'ออกใบกำกับภาษี', path:'/document/create/tax-invoice'}
+    {name:'ใบสั่งซื้อ', path:'/document/create/purchase-order'},
+    {name:'บันทึกค่าใช้จ่าย', path:'/document/create/expense-record'},
+    {name:'บันทึกซื้อสินค้า', path:'/document/create/purchase-record'},
   ];
 
   const states = type == "income" ? states_income : states_expense;
