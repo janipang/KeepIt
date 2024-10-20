@@ -10,7 +10,6 @@ import { postInvoice } from '@/services/createDocument';
 import { InvoiceInfo } from '@/types/DocumentInfo';
 import { Select, SelectItem } from '@nextui-org/react';
 import { Textarea } from '@nextui-org/input';
-import { Listbox, ListboxItem } from '@nextui-org/react';
 import Document from '@/components/document';
 import { PlusIcon } from '@/components/icons';
 import ProductEditTable from '@/components/table/product-edit-table';
