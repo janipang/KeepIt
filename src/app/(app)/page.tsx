@@ -110,6 +110,8 @@ export default function Home() {
         <div className="flex flex-row flex-wrap gap-6 w-full">
           <Button onClick={() => router.push('/document/create/quotation')}>ออกใบเสนอราคา</Button>
           <Button onClick={() => router.push('/document/create/invoice')}>ออกใบแจ้งหนี้</Button>
+          <Button onClick={() => router.push('/document/create/purchase-order')}>ออกใบสั่งซื้อ</Button>
+          <Button onClick={() => router.push('/document/create/expense-record')}>ออกใบบันทึกค่าใช้จ่าย</Button>
           <Button
             onClick={() => router.push('/document/create/tax-invoice')}
             isDisabled

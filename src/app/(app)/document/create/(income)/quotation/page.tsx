@@ -14,6 +14,7 @@ import Document from '@/components/document';
 import { Button } from '@nextui-org/react';
 import { products } from '@/constants/mock/product';
 import ProductEditTable from '@/components/table/product-edit-table';
+import BillBoard from '@/components/document/billboard';
 
 export default function Quotation() {
   const router = useRouter();
@@ -100,7 +101,7 @@ export default function Quotation() {
                 type="text"
                 label="ที่อยู่"
                 variant="bordered"
-                className="full"
+                className="col-span-2 full"
               />
               <Input
                 name="customer_phone"
@@ -116,7 +117,7 @@ export default function Quotation() {
 
           <div className="grid grid-cols-[2fr_8fr] gap-4">
             <h2 className="w-full">ข้อมูลและราคาภาษี</h2>
-            <div className="grid grid-cols-[1fr_1fr_1fr]">
+            <div className="grid grid-cols-[1fr_1fr_1fr] gap-4">
               <Select
                 label="ประเภทราคา"
                 variant="bordered"
@@ -159,20 +160,18 @@ export default function Quotation() {
           <div className="grid grid-cols-[2fr_8fr] gap-4">
             <h2 className="w-full">สรุปข้อมูล</h2>
             <div className="grid grid-cols-[2fr_3fr] gap-4">
-              <div className="w-full flex p-4 justify-between items-center rounded-lg bg-accent-light">
-                <p>ส่วนลดรวม</p>
-                <span className="flex items-center gap-4">
-                  <p className="text-2xl font-semibold">{discount}</p>
-                  <p>บาท</p>
-                </span>
-              </div>
-              <div className="w-full flex p-4 justify-between items-center rounded-lg bg-primary text-white">
-                <p>จำนวนเงินทั้งสิ้น</p>
-                <span className="flex items-center gap-4">
-                  <p className="text-2xl font-semibold">{discount}</p>
-                  <p>บาท</p>
-                </span>
-              </div>
+              <BillBoard
+                variant="light"
+                title="ส่วนลดรวม"
+                amount={discount}
+                unit="บาท"
+              />
+              <BillBoard
+                variant="primary"
+                title="จำนวนเงินทั้งสิ้น"
+                amount={discount}
+                unit="บาท"
+              />
             </div>
           </div>
 

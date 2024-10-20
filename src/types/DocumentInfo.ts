@@ -33,3 +33,13 @@ export interface RecieptInfo{
     customer_address: string;
     customer_phone: string;
 }
+
+
+export interface PurchaseInfo{
+    document_id: string;
+    customer_name: string;
+    created_date: string;
+    expired_date: string;
+    customer_address: string;
+    customer_phone: string;
+}

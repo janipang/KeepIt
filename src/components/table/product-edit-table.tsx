@@ -99,7 +99,7 @@ export default function ProductEditTable({
               radius="none"
               className="w-full row-span-2"
             />
-            <div className="w-full h-full flex justify-center items-center">
+            <div className="w-full h-full flex justify-center items-center text-accent-dark">
               <DeleteIcon />
             </div>
           </tr>
