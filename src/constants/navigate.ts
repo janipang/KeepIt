@@ -269,8 +269,8 @@ const navData: MenuItem[] = [
                 path: "",
                 child: [
                     { id: 2510, name: "สร้าง", path: "/document/create/tax-invoice", child: [] },
-                    { id: 2520, name: "ชำระเงินแล้ว", path: "/document/create/tax-invoice", child: [] },
-                    { id: 2530, name: "ดูทั้งหมด", path: "/document/create/tax-invoice", child: [] },
+                    { id: 2520, name: "ชำระเงินแล้ว", path: "/expense", child: [] },
+                    { id: 2530, name: "ดูทั้งหมด", path: "/document/view/tax-invoice", child: [] },
                 ],
             },
         ],
@@ -279,26 +279,16 @@ const navData: MenuItem[] = [
         name: "รายจ่าย",
         path: "",
         child: [
-            { id: 3100, name: "ดูภาพรวม", path: "/income", child: [] },
+            { id: 3100, name: "ดูภาพรวม", path: "/expense", child: [] },
             {
                 id: 3200,
                 name: "ใบสั่งซื้อ",
                 path: "",
                 child: [
-                    { id: 3210, name: "สร้าง", path: "/document/create/tax-invoice", child: [] },
+                    { id: 3210, name: "สร้าง", path: "/document/create/purchase-order", child: [] },
                     { id: 3220, name: "อนุมัติแล้ว", path: "/income", child: [] },
                     { id: 3230, name: "รออนุมัติ", path: "/income", child: [] },
-                    { id: 3240, name: "ดูภาพรวม", path: "/income", child: [] },
-                ],
-            },
-            {
-                id: 3300,
-                name: "ใบกำกับภาษีซื้อ",
-                path: "",
-                child: [
-                    { id: 3310, name: "อนุมัติแล้ว", path: "/income", child: [] },
-                    { id: 3320, name: "รออนุมัติ", path: "/income", child: [] },
-                    { id: 3330, name: "ดูทั้งหมด", path: "/income", child: [] },
+                    { id: 3240, name: "ดูภาพรวม", path: "/document/view/purchase-order", child: [] },
                 ],
             },
         ],
