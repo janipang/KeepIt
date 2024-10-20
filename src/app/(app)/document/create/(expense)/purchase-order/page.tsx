@@ -99,7 +99,7 @@ export default function PurchaseOrder() {
   return (
     <div className="w-full flex flex-col gap-8 justify-start items-center p-4 md:p-6 lg:px-12">
       {/* header stepper */}
-      <Stepper type="income" />
+      <Stepper type="expense" />
 
       {/* document */}
       <Document>
