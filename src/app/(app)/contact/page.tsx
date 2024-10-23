@@ -14,7 +14,7 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
-} from "@nextui-org/react";
+} from "@nextui-org/modal";
 
 export default function Contact() {
   const { isOpen, onOpen, onClose } = useDisclosure();

@@ -1,4 +1,4 @@
-import { ProductInfo } from "@/types/Contact"
+import { ProductInfo } from "@/types/Product";
 
 export const products:ProductInfo[] = [{
     id: "pd001",
