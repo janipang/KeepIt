@@ -51,7 +51,7 @@ const CreateContactForm: React.FC<Props> = ({
     postContact(contact);
   }
   return (
-    <Card className="shadow-none border-none p-4 md:p-8 lg:p-12">
+    <Card className="shadow-none border-none p-4 md:p-8 lg:p-12 h-fit max-h-[90vh] overflow-y-scroll">
       <form>
         <section className="flex justify-between my-4">
           <h1>เพิ่มผู้ติดต่อ</h1>

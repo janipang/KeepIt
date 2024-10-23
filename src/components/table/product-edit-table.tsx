@@ -1,7 +1,7 @@
 import { Input } from '@nextui-org/input';
 import { useEffect, useState } from 'react';
 import Loading from '../loading';
-import { ProductInfo } from '@/types/Contact';
+import { ProductInfo } from '@/types/Product';
 import { Select, SelectItem } from '@nextui-org/select';
 import { DeleteIcon } from '../icons';
 
