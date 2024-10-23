@@ -23,8 +23,8 @@ export default function Financial() {
       >
         เพิ่มบัญชี
       </Button>
-      <Modal size="3xl" isOpen={isOpen} onClose={onClose}>
-        <ModalContent className="h-[60vh] max-h-[1200px] border-4 border-yellow-800">
+      <Modal size="3xl" isOpen={isOpen} onClose={onClose} placement="center">
+        <ModalContent className="h-[60vh] max-h-[1200px]">
           {(onClose) => <CreateFinancialChannelForm onClose={onClose} />}
         </ModalContent>
       </Modal>

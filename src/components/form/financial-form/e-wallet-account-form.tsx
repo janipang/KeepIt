@@ -1,3 +1,5 @@
+import SelectEWalletProvider from '@/components/select/financial/selectEWalletProvider';
+import SelectEWalletProviderType from '@/components/select/financial/selectEWalletProviderType';
 import { Input } from '@nextui-org/input';
 
 interface Props {
@@ -14,32 +16,17 @@ interface Props {
 export default function EWalletAccountForm(props: Props) {
   return (
     <div className="grid grid-cols-2 gap-4">
+      <SelectEWalletProviderType onValueChange={props.setProviderType}/>
+      <SelectEWalletProvider providerType={props.providerType} onValueChange={props.setProvider}/>
       <Input
-        name="providerType"
-        value={props.providerType}
-        onChange={(e) => props.setProviderType(e.target.value)}
-        type="text"
-        label="รูปแบบผู้ให้บริการ"
-        variant="bordered"
-        className="w-full"
-      />
-      <Input
-        name="provider"
-        value={props.provider}
-        onChange={(e) => props.setProvider(e.target.value)}
-        type="text"
-        label="ผู้ให้บริการ"
-        variant="bordered"
-        className="w-full"
-      />
-      <Input
-        name="name"
+        name="accountName" //didn't use but to make it semantic
         value={props.name}
         onChange={(e) => props.setName(e.target.value)}
         type="text"
         label="ชื่อบัญชีที่ใช้บริการ"
         variant="bordered"
         className="w-full"
+        isRequired
       />
       <Input
         name="accountNumber"
@@ -49,7 +36,22 @@ export default function EWalletAccountForm(props: Props) {
         label="เลขที่บัญชี e-wallet"
         variant="bordered"
         className="w-full"
+        isRequired
       />
+      
+      {/* dummy */}
+      <input //dummy for browser validating
+        type="text"
+        value={props.name}
+        required
+        className="absolute top-2/3 left-0 opacity-0 w-1/2 -z-10"
+      /> 
+      <input //dummy for browser validating
+        type="text"
+        value={props.accountNumber}
+        required
+        className="absolute top-2/3 left-1/2 opacity-0 w-1/2 -z-10"
+      /> 
     </div>
   );
 }

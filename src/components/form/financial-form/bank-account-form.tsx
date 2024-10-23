@@ -1,3 +1,5 @@
+import SelectBank from '@/components/select/financial/selectBank';
+import SelectBankAccountType from '@/components/select/financial/selectBankAccountType';
 import { Input } from '@nextui-org/input';
 
 interface Props {
@@ -13,33 +15,18 @@ interface Props {
 
 export default function BankAccountForm(props: Props) {
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-2 gap-4 relative">
+      <SelectBank onValueChange={props.setBank} />
+      <SelectBankAccountType onValueChange={props.setAccountType} />
       <Input
-        name="bank"
-        value={props.bank}
-        onChange={(e) => props.setBank(e.target.value)}
-        type="text"
-        label="ธนาคาร"
-        variant="bordered"
-        className="w-full"
-      />
-      <Input
-        name="accountType"
-        value={props.accountType}
-        onChange={(e) => props.setAccountType(e.target.value)}
-        type="text"
-        label="ประเภทบัญชี"
-        variant="bordered"
-        className="w-full"
-      />
-      <Input
-        name="name"
+        name="accountName" //didn't use but to make it semantic
         value={props.name}
         onChange={(e) => props.setName(e.target.value)}
         type="text"
         label="ชื่อบัญชีธนาคาร"
         variant="bordered"
         className="w-full"
+        isRequired
       />
       <Input
         name="accountNumber"
@@ -49,6 +36,21 @@ export default function BankAccountForm(props: Props) {
         label="เลขบัญชีธนาคาร"
         variant="bordered"
         className="w-full"
+        isRequired
+      />
+      
+      {/* dummy */}
+      <input //dummy for browser validating
+        type="text"
+        value={props.name}
+        required
+        className="absolute top-2/3 left-0 opacity-0 w-1/2 -z-10"
+      />
+      <input //dummy for browser validating
+        type="text"
+        value={props.accountNumber}
+        required
+        className="absolute top-2/3 left-1/2 opacity-0 w-1/2 -z-10"
       />
     </div>
   );

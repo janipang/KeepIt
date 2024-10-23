@@ -8,7 +8,7 @@ interface Props {
 export default function RadioFinancialChannel({
     onValueChange,
   }: Props) {
-    const [value, setValue] = useState<"cash" | "bankaccount" | "e-wallet">("cash");
+    const [value, setValue] = useState<"cash" | "bankaccount" | "e-wallet">("bankaccount");
   return (
     <RadioGroup
       color="secondary"

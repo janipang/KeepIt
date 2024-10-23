@@ -1,7 +1,6 @@
 import { Card } from '@nextui-org/card';
 import { Divider } from '@nextui-org/divider';
-import { useState } from 'react';
-import { Contact } from '@/types/Contact';
+import { FormEvent, useState } from 'react';
 import { Button } from '@nextui-org/react';
 import { useRouter } from 'next/navigation';
 import RadioFinancialChannel from '../radio/radioFinancialChannel';
@@ -15,6 +14,7 @@ import { postFinancialChannel } from '@/services/financialChannel';
 import CashAccountForm from './financial-form/cash-account-form';
 import BankAccountForm from './financial-form/bank-account-form';
 import EWalletAccountForm from './financial-form/e-wallet-account-form';
+import { validateFinancialAccount } from '@/services/validate/financial';
 
 interface Props {
   children?: React.ReactNode;
@@ -27,7 +27,7 @@ const CreateFinancialChannelForm: React.FC<Props> = ({
   ...props
 }) => {
   const router = useRouter();
-  const [type, setType] = useState<'cash' | 'bankaccount' | 'e-wallet'>('cash');
+  const [type, setType] = useState<'cash' | 'bankaccount' | 'e-wallet'>('bankaccount');
   const [account, setAccount] = useState<CashAccount | BankAccount | EWallet>();
   const [name, setName] = useState<string>(''); //for เงินสด และ บัญชีธนาคาร และ e-wallet
   // --------- account information ------//
@@ -37,7 +37,14 @@ const CreateFinancialChannelForm: React.FC<Props> = ({
   const [providerType, setProviderType] = useState<string>(''); //for e-wallet
   const [provider, setProvider] = useState<string>(''); //for e-wallet
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    const form = e.currentTarget;
+    if (!(form.checkValidity())){
+      form.reportValidity();
+    }
+
     let new_account;
     switch (type) {
       case 'cash':
@@ -65,7 +72,8 @@ const CreateFinancialChannelForm: React.FC<Props> = ({
         } as EWallet;
         break;
       default:
-        alert('Please Select Account Type!');
+        alert('โปรดระบุประเภทบัญชี');
+        return false;
     }
 
     if (new_account) {
@@ -73,19 +81,23 @@ const CreateFinancialChannelForm: React.FC<Props> = ({
         type: type,
         account: new_account,
       };
-      console.log(channel);
-      const new_channel = await postFinancialChannel(channel);
-      if (new_channel) {
-        router.push('/financial');
-      } else {
-        alert('create financial channel failed');
+      if (await validateFinancialAccount(channel)) {
+        const new_channel = await postFinancialChannel(channel);
+
+        if (new_channel) {
+          router.push('/financial');
+          return true;
+        } else {
+          alert('เกิดข้อผิดพลาดในการสร้างบัญชี');
+          return false;
+        }
       }
     }
   };
 
   return (
     <Card className="h-full shadow-none border-none p-4 md:p-8 max-h-[90vh]">
-      <form className="h-full flex flex-col justify-between">
+      <form onSubmit={handleSubmit} className="h-full flex flex-col justify-between">
         <section className="flex flex-col gap-6 justify-start my-4">
           <h1 className="text-3xl">เพิ่มช่องทางการเงิน</h1>
           <RadioFinancialChannel onValueChange={setType} />
@@ -126,7 +138,7 @@ const CreateFinancialChannelForm: React.FC<Props> = ({
             <Button
               className="text-tiny"
               variant="flat"
-              size="sm"
+              size="md"
               onPress={onClose}
             >
               ยกเลิก
@@ -134,8 +146,8 @@ const CreateFinancialChannelForm: React.FC<Props> = ({
             <Button
               className="text-tiny"
               color="primary"
-              size="sm"
-              onClick={handleSubmit}
+              size="md"
+              type="submit"
             >
               เพิ่ม
             </Button>
