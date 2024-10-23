@@ -9,6 +9,7 @@ import { accountNameExist } from '../financialChannel';
 export async function validateFinancialAccount(channel: FinancialChannel) {
   console.log(channel);
   switch (channel.type) {
+    // --------------------- cash -------------------------
     case 'cash': {
       const account = channel.account as CashAccount;
       if (
@@ -18,16 +19,20 @@ export async function validateFinancialAccount(channel: FinancialChannel) {
       ) {
         alert('กรุณากรอกชื่อบัญชี');
         return false;
-      } else {
-        if (await accountNameExist('cash', account.name)) {
-          alert(
-            'ชื่อบัญชีเงินสดนี้ถูกใช้ไปแล้วสำหรับบัญชีเงินสด กรุณาใช้ชื่ออื่น'
-          );
-          return false;
-        }
       }
+
+      if (await accountNameExist('cash', account.name)) {
+        alert(
+          'ชื่อบัญชีเงินสดนี้ถูกใช้ไปแล้ว กรุณาใช้ชื่ออื่น'
+        );
+        return false;
+      }
+
       return true;
     }
+
+
+    // ------------------- bankaccount ------------------------
     case 'bankaccount': {
       const account = channel.account as BankAccount;
       if (
@@ -59,8 +64,18 @@ export async function validateFinancialAccount(channel: FinancialChannel) {
         alert('กรอกเลขบัญชี 10 หลัก');
         return false;
       } //check digit of account_number ,every bank is 10 except ออมสิน that is 12 || 15
+
+      if (await accountNameExist('bankaccount', account.name)) {
+        alert(
+          'ชื่อบัญชีธนาคารนี้ถูกใช้ไปแล้ว กรุณาใช้ชื่ออื่น'
+        );
+        return false;
+      }
       return true;
     }
+
+
+    // -------------------- e-wallet --------------------------
     case 'e-wallet': {
       const account = channel.account as EWallet;
       if (
@@ -100,6 +115,13 @@ export async function validateFinancialAccount(channel: FinancialChannel) {
 
       if (account.account_number.length !== 10) {
         alert('กรุณากรอกเลขบัญชีให้ถูกต้อง');
+        return false;
+      }
+      
+      if (await accountNameExist('e-wallet', account.name)) {
+        alert(
+          'ชื่อบัญชี e-wallet นี้ถูกใช้ไปแล้ว กรุณาใช้ชื่ออื่น'
+        );
         return false;
       }
 
