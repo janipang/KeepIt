@@ -21,7 +21,7 @@ export default function RootLayout({
     <>
       <Navbar />
       {/* outter container */}
-      <div className="flex min-h-screen bg-blue-100 px-6 md:px-12 lg:px-20">
+      <div className="flex min-h-screen px-6 md:px-12 lg:px-20">
         {/* inner container */}
         <div className="flex flex-col my-20 flex-grow w-full">{children}</div>
       </div>

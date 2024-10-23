@@ -2,6 +2,7 @@ import { ProductInfo } from '@/types/Product';
 import axios from 'axios';
 import { BACKEND_URL } from '@/constants/api';
 import { FinancialChannel } from '@/types/FinancialChannel';
+import { financialChannels } from '@/constants/mock/channel';
 
 export const getFinancialChannel = async () => {
   try {
@@ -67,4 +68,40 @@ export const accountNameExist = async (
     console.log(err);
   }
   return false;
+};
+
+export const getGroupedFinancialChannel = async () => {
+  // const channels = (await getFinancialChannel()) as FinancialChannel[];
+  const channels = financialChannels as FinancialChannel[]; // just mock
+  
+  if (channels) {
+    const group: {
+      cash: FinancialChannel[];
+      bankaccount: FinancialChannel[];
+      'e-wallet': FinancialChannel[];
+    } = {
+      cash: [],
+      bankaccount: [],
+      'e-wallet': [],
+    };
+
+    channels.map((channel) => {
+      switch (channel.type) {
+        case 'cash':
+          group.cash.push(channel);
+          break;
+        case 'bankaccount':
+          group.bankaccount.push(channel);
+          break;
+        case 'e-wallet':
+          group['e-wallet'].push(channel);
+          break;
+        default:
+          break;
+      }
+    });
+    return group;
+  } else {
+    return null;
+  }
 };
