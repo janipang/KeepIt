@@ -7,7 +7,7 @@ export const getContacts = async () => {
   try {
     const response = await axios.get(`${BACKEND_URL}/contact`, {
       headers: {
-        businessId: getCookie('businessId'),
+        // businessId: getCookie('businessId'),
         accessToken: getCookie('accessToken'),
       },
     });
@@ -26,7 +26,7 @@ export const getContactById = async (
   try {
     const response = await axios.get(`${BACKEND_URL}/contact/${contactId}`, {
       headers: {
-        businessId: getCookie('businessId'),
+        // businessId: getCookie('businessId'),
         accessToken: getCookie('accessToken'),
       },
     });
@@ -45,7 +45,7 @@ export const postContact = async (
   try {
     const response = await axios.post(`${BACKEND_URL}/contact`, {
         headers: {
-          businessId: getCookie('businessId'),
+          // businessId: getCookie('businessId'),
           accessToken: getCookie('accessToken'),
         },
       contact,
