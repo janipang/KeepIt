@@ -7,7 +7,6 @@ import {
 import { accountNameExist } from '../financialChannel';
 
 export async function validateFinancialAccount(channel: FinancialChannel) {
-  console.log(channel);
   switch (channel.type) {
     // --------------------- cash -------------------------
     case 'cash': {

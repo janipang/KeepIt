@@ -22,12 +22,13 @@ export default function Contact() {
   const [creating, setCreating] = useState<boolean>(false);
   return (
     <>
-      <div className="p-4 rounded-lg shadow-lg grid gap-2 grid-cols-[1fr_6fr] grid-rows-[50px_1fr] bg-white">
-        <span>ผู้ติดต่อ</span>
+      <div className="p-4 rounded-lg shadow-lg grid gap-4 grid-cols-[1fr_6fr] grid-rows-[50px_1fr] bg-white">
+        <p className="text-heading">ผู้ติดต่อ</p>
         <Button
           startContent={<PlusIcon />}
           onPress={() => onOpen()}
-          className="w-fit"
+          color="primary"
+          className="w-fit justify-self-end"
         >
           เพิ่มผู้ติดต่อ
         </Button>

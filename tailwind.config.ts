@@ -75,6 +75,10 @@ const config: Config = {
           '5': 'hsl(var(--chart-5))',
         },
       },
+      fontSize: {
+        subheading: '1.563rem',
+        heading: '1.953rem',
+      },
       backgroundImage: {
         'gradient-primary':
           'linear-gradient(35deg, rgba(127,127,213,1) 0%, rgba(144,107,242,1) 29%, rgba(145,234,228,1) 100%)',

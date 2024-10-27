@@ -23,7 +23,7 @@ export default function ProductEditTable({
   return (
     <table className="mb-8">
       <thead>
-        <tr className="grid grid-cols-[0.5fr_3.5fr_1fr_1fr_1fr_1fr_1fr_0.5fr] text-left text-sm">
+        <tr className="grid grid-cols-[0.5fr_3.5fr_1fr_1fr_1fr_1fr_0.5fr] text-left text-sm">
           <th className="p-2 font-normal" scope="col">
             ลำดับ
           </th>
@@ -37,19 +37,16 @@ export default function ProductEditTable({
             ราคา/หน่วย
           </th>
           <th className="p-2 font-normal" scope="col">
-            ส่วยลด/หน่วย
+            ภาษี/หน่วย
           </th>
           <th className="p-2 font-normal" scope="col">
-            มูลค่าก่อนภาษี
-          </th>
-          <th className="p-2 font-normal" scope="col">
-            หัก ณ ที่จ่าย
+            มูลค่าก่อนหักภาษี
           </th>
         </tr>
       </thead>
       <tbody className="w-full">
         {products.map((product, index) => (
-          <tr key={index} className="grid grid-cols-[0.5fr_3.5fr_1fr_1fr_1fr_1fr_1fr_0.5fr]">
+          <tr key={index} className="grid grid-cols-[0.5fr_3.5fr_1fr_1fr_1fr_1fr_0.5fr]">
             <p className="w-full border-2 border-accent flex items-center justify-center">
               {index + 1}
             </p>
@@ -72,14 +69,14 @@ export default function ProductEditTable({
               className="w-full row-span-2 "
             />
             <Input
-              name="price"
+              name="price_per_unit"
               type="number"
               variant="bordered"
               radius="none"
               className="w-full row-span-2"
             />
             <Input
-              name="discount"
+              name="price_per_unit"
               type="number"
               variant="bordered"
               radius="none"
@@ -87,13 +84,6 @@ export default function ProductEditTable({
             />
             <Input
               name="real_price"
-              type="number"
-              variant="bordered"
-              radius="none"
-              className="w-full row-span-2"
-            />
-            <Input
-              name="tax"
               type="number"
               variant="bordered"
               radius="none"
