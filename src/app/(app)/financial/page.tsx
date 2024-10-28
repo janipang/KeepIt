@@ -44,7 +44,7 @@ export default function Financial() {
     <>
       <div className="flex flex-col">
         <section className="flex justify-between">
-          <h1 className="text-3xl">ช่องทางการเงิน</h1>
+          <h1 className="text-heading">ช่องทางการเงิน</h1>
           <Button
             startContent={<PlusIcon />}
             onPress={() => onOpen()}

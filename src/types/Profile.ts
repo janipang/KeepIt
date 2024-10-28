@@ -1,8 +1,9 @@
 export default interface Profile{
     id?: string;
+    title: string;
     firstName: string;
     lastName: string;
-    picture?: string;
+    address: string;
     phone: string;
-    role: string;
+    picture?: string;
 }

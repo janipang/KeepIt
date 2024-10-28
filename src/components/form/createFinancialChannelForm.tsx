@@ -99,7 +99,7 @@ const CreateFinancialChannelForm: React.FC<Props> = ({
     <Card className="h-full shadow-none border-none p-4 md:p-8 max-h-[90vh]">
       <form onSubmit={handleSubmit} className="h-full flex flex-col justify-between">
         <section className="flex flex-col gap-6 justify-start my-4">
-          <h1 className="text-3xl">เพิ่มช่องทางการเงิน</h1>
+          <h1 className="text-heading">เพิ่มช่องทางการเงิน</h1>
           <RadioFinancialChannel onValueChange={setType} />
           <Divider />
         </section>

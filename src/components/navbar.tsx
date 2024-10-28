@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   Navbar as NextUINavbar,
@@ -8,34 +8,32 @@ import {
   NavbarBrand,
   NavbarItem,
   NavbarMenuItem,
-} from "@nextui-org/navbar";
-import { Button } from "@nextui-org/button";
-import NextLink from "next/link";
-import { navData } from "@/constants/navigate";
+} from '@nextui-org/navbar';
+import { Button } from '@nextui-org/button';
+import NextLink from 'next/link';
+import { navData } from '@/constants/navigate';
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownTrigger,
-} from "@nextui-org/dropdown";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import MenuItem from "@/types/MenuItem";
-import Image from "next/image";
+} from '@nextui-org/dropdown';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import MenuItem from '@/types/MenuItem';
+import Image from 'next/image';
+import { getCookie } from '@/services/cookie';
 
 export default function Navbar() {
   const router = useRouter();
   const items: MenuItem[] = navData;
-  
+
   return (
-    <NextUINavbar maxWidth="xl" position="sticky">
-      <NavbarContent
-        className="basis-1/5 sm:basis-full"
-        justify="start"
-      >
+    <NextUINavbar maxWidth="2xl" position="sticky" className="px-10">
+      <NavbarContent className="basis-full w-full grid grid-cols-[120px_1fr_320px]">
         <NavbarBrand as="li" className="gap-3 max-w-fit">
           <NextLink className="flex justify-start items-center gap-1" href="/">
-          <Image src="/logos/k.png" alt="logo" height={24} width={24} />
+            <Image src="/logos/k.png" alt="logo" height={24} width={24} />
             <p className="font-bold text-inherit">Keep</p>
           </NextLink>
         </NavbarBrand>
@@ -85,7 +83,7 @@ export default function Navbar() {
                             <DropdownTrigger>
                               <button className="w-full outline-none flex flex-row justify-between">
                                 <p>{child.name}</p>
-                                <p>{">"}</p>
+                                <p>{'>'}</p>
                               </button>
                             </DropdownTrigger>
                             <DropdownMenu aria-label={`${child.name} Menu`}>
@@ -104,7 +102,7 @@ export default function Navbar() {
                                       <DropdownTrigger>
                                         <button className="w-full outline-none flex flex-row justify-between">
                                           <p>{grandch.name}</p>
-                                          <p>{">"}</p>
+                                          <p>{'>'}</p>
                                         </button>
                                       </DropdownTrigger>
                                       <DropdownMenu
@@ -127,7 +125,14 @@ export default function Navbar() {
             }
           })}
         </nav>
+
+        <div className="flex gap-2 justify-self-end">
+          <p className="h-6 w-6 rounded-full bg-accent"></p>
+          <p className="text-black">
+            {decodeURIComponent(getCookie("BussinessName") as string)}
+          </p>
+        </div>
       </NavbarContent>
     </NextUINavbar>
   );
-};
+}
