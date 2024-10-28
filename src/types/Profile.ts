@@ -3,6 +3,7 @@ export default interface Profile{
     title: string;
     firstName: string;
     lastName: string;
+    address: string;
     phone: string;
     picture?: string;
 }

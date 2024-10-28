@@ -136,8 +136,9 @@ export const postRegister = async (
       title: profile.title,
       firstName: profile.firstName,
       lastName: profile.lastName,
+      address: profile.address,
       phone: profile.phone,
-      imgData: '',
+      imgData: profile?.picture,
     });
     console.log(response);
     return response.data.content; //return access token
