@@ -29,3 +29,28 @@ export const DeleteIcon : React.FC<IconSvgProps> = ({
     </svg>
   );
 };
+
+export const CloseIcon : React.FC<IconSvgProps> = ({
+  size = 24,
+  width,
+  height,
+  ...props
+}) => {
+  return (
+    <svg
+      aria-hidden="true"
+      fill="none"
+      focusable="false"
+      height={size || height}
+      role="presentation"
+      viewBox="0 -960 960 960"
+      width={size || width}
+      {...props}
+    >
+      <path
+        d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+};

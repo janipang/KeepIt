@@ -79,7 +79,7 @@ export default function Home() {
 
   return (
     <div>
-      <h1 className="text-2xl font-extrabold mt-10 mb-6">Our Team</h1>
+      <h1 className="text-heading mt-10 mb-6">Our Team</h1>
       <Table aria-label="Example table with dynamic content" className="my-6">
         <TableHeader columns={columns}>
           {(column) => (
@@ -96,7 +96,7 @@ export default function Home() {
           )}
         </TableBody>
       </Table>
-      <h1 className="text-2xl font-extrabold mt-10 mb-6">Testing</h1>
+      <h1 className="text-heading mt-10 mb-6">Testing</h1>
       <div className="flex flex-col flex-wrap gap-4 w-full">
         <div className="flex flex-row flex-wrap gap-6 w-full">
           <Button onClick={() => router.push('/login')}>Verify</Button>
@@ -118,7 +118,7 @@ export default function Home() {
           >ออกใบกำกับภาษี</Button>
         </div>
       </div>
-      <h1 className="text-2xl font-extrabold mt-10 mb-6">Dev Plan</h1>
+      <h1 className="text-heading mt-10 mb-6">Dev Plan</h1>
       <Calendar calendarWidth={320} visibleMonths={2} />
     </div>
   );
