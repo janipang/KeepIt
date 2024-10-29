@@ -1,4 +1,5 @@
 'use client';
+
 import React, { FormEvent, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getCookie, setCookie } from '@/services/cookie';
@@ -77,16 +78,39 @@ export default function SelectBusiness() {
                     jumpIntoBusiness(business.name, business.branch)
                   }
                 >
-                  <div className="w-full p-2 rounded-xl shadow-lg bg-white grid grid-rows-[4fr_1fr] grid-cols-[1fr_5fr_2fr] gap-2 h-28">
-                    <div className="row-span-2 w-full h-full aspect-square">
+                  <div className="w-full p-2 rounded-xl shadow-lg bg-white grid grid-rows-[60px_45px] grid-cols-[1fr_5fr_2fr] gap-2">
+                    <div className="row-span-2 w-full h-full aspect-square p-3">
                       {business.logoUrl && business.logoUrl !== '-' ? (
-                        <Image src={business.logoUrl} alt="business-logo" />
+                        <Image
+                          src={business.logoUrl}
+                          alt="business-logo"
+                          objectFit="cover"
+                          width="2048"
+                          height="2048"
+                          className="w-full h-full"
+                        />
+                      ) : index % 2 ? (
+                        <Image
+                          src="/company-logo/logo.png"
+                          alt="business-logo"
+                          objectFit="cover"
+                          width="2048"
+                          height="2048"
+                          className="w-full h-full"
+                        />
                       ) : (
-                        <DiamondIcon className="w-full h-full aspect-ratio text-accent font-light" />
+                        <Image
+                          src="/company-logo/logo-2.png"
+                          alt="business-logo"
+                          objectFit="cover"
+                          width="2048"
+                          height="2048"
+                          className="w-full h-full"
+                        />
                       )}
                     </div>
 
-                    <div className="flex flex-col gap-0">
+                    <div className="flex flex-col gap-0 self-start justify-self-start text-left pt-2">
                       <p className="text-lg font-bold">
                         {decodeURIComponent(business.name)}
                       </p>

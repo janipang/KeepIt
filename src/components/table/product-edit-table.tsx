@@ -1,3 +1,5 @@
+'use client'
+
 import { Input } from '@nextui-org/input';
 import { useEffect, useState } from 'react';
 import Loading from '../loading';

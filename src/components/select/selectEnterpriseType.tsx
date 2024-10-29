@@ -1,10 +1,12 @@
 "use client";
+
 import { Select, SelectItem } from "@nextui-org/select";
 import { useEffect, useState } from "react";
 import { Selection } from "@react-types/shared";
+import { BusinessType } from "@/types/enum";
 
 interface Props {
-  onValueChange: (value: string) => void;
+  onValueChange: (value: BusinessType) => void;
 }
 
 export default function SelectEnterpriseType({ onValueChange }: Props) {
@@ -13,18 +15,18 @@ export default function SelectEnterpriseType({ onValueChange }: Props) {
   useEffect(() => {
     onValueChange(
       value === undefined
-        ? ""
+        ? BusinessType.COOPERATE
         : value === "all"
-        ? "all"
+        ? BusinessType.COOPERATE
         : value.size
-        ? ((value.entries().next().value?.[0] as string) ?? "")
-        : ""
+        ? ((value.entries().next().value?.[0] as BusinessType) ?? "")
+        : BusinessType.COOPERATE
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
   const options = [
-    { key: "corporation", label: "นิติบุคคล" },
-    { key: "personal", label: "บุคคล" },
+    { key: BusinessType.COOPERATE, label: "นิติบุคคล" },
+    { key: BusinessType.INDIVIDUAL, label: "บุคคล" },
   ];
   return (
     <Select
