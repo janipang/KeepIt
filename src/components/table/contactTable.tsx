@@ -1,6 +1,6 @@
+'use client';
 
-"use client";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Table,
   TableHeader,
@@ -12,29 +12,47 @@ import {
   User,
   Pagination,
   SortDescriptor,
-} from "@nextui-org/react";
-import { SearchIcon } from "../icons";
-import { columns, users, UserType } from "@/constants/contact";
-import { Selection } from "@react-types/shared";
-import {Key} from '@react-types/shared';
+  Tooltip,
+} from '@nextui-org/react';
+import { DeleteIcon, SearchIcon } from '../icons';
+import { Selection } from '@react-types/shared';
+import { Key } from '@react-types/shared';
+import { Contact } from '@/types/Contact';
+import { getContacts } from '@/services/contact';
+import Loading from '../loading';
+import { EditIcon, EyeIcon } from '../icons';
 
-const INITIAL_VISIBLE_COLUMNS = ["id", "name", "company", "phone", "actions"];
+const INITIAL_VISIBLE_COLUMNS = [
+  'firstName',
+  'businessName',
+  'phone',
+  // 'taxID',
+  // 'address',
+  'actions',
+];
+
+const columns = [
+  { name: 'ชื่อ-นามสกุล', uid: 'firstName' },
+  { name: 'บริษัท', uid: 'businessName' },
+  { name: 'เบอร์ติดต่อ', uid: 'phone' },
+  { name: 'เลขประจำตัวผู้เสียภาษี', uid: 'taxID' },
+  { name: 'ที่อยู่', uid: 'address' },
+  { name: 'คำสั่ง', uid: 'actions' },
+];
 
 export default function ContactTable() {
-  const [nameFilterValue, setNameFilterValue] = useState("");
-  const [companyFilterValue, setCompanyFilterValue] = useState("");
+  const [nameFilterValue, setNameFilterValue] = useState('');
+  const [companyFilterValue, setCompanyFilterValue] = useState('');
   const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set<Key>());
   const [visibleColumns, setVisibleColumns] = useState(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
+  const [contactData, setContactData] = useState<Contact[]>([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [sortDescriptor, setSortDescriptor] = useState<SortDescriptor>({
-    column: "age",
-    direction: "ascending",
-  });
   const [page, setPage] = useState(1);
+  const [pending, setPending] = useState<boolean>(true);
 
-  const pages = Math.ceil(users.length / rowsPerPage);
+  const pages = Math.ceil(contactData.length / rowsPerPage);
 
   const hasNameSearchFilter = Boolean(nameFilterValue);
   const hasCompanySearchFilter = Boolean(companyFilterValue);
@@ -46,13 +64,20 @@ export default function ContactTable() {
   }, [visibleColumns]);
 
   const filteredItems = useMemo(() => {
-    let filteredUsers = [...users];
+    let filteredUsers = [...contactData];
 
     if (hasNameSearchFilter || hasCompanySearchFilter) {
       filteredUsers = filteredUsers.filter(
         (user) =>
-          user.name.toLowerCase().includes(nameFilterValue.toLowerCase()) &&
-          user.company.toLowerCase().includes(companyFilterValue.toLowerCase())
+          (user.firstName
+            .toLowerCase()
+            .includes(nameFilterValue.toLowerCase()) ||
+            user.lastName
+              .toLowerCase()
+              .includes(nameFilterValue.toLowerCase())) &&
+          user.businessName
+            .toLowerCase()
+            .includes(companyFilterValue.toLowerCase())
       );
     }
 
@@ -62,6 +87,7 @@ export default function ContactTable() {
     companyFilterValue,
     hasNameSearchFilter,
     hasCompanySearchFilter,
+    contactData,
   ]);
 
   const items = useMemo(() => {
@@ -71,49 +97,65 @@ export default function ContactTable() {
     return filteredItems.slice(start, end);
   }, [page, filteredItems, rowsPerPage]);
 
-  const sortedItems = useMemo(() => {
-    if (!sortDescriptor.column) return items;
-    return [...items].sort((a, b) => {
-      const first = a[sortDescriptor.column as keyof typeof a];
-      const second = b[sortDescriptor.column as keyof typeof b];
-      const cmp = first < second ? -1 : first > second ? 1 : 0;
+  useEffect(() => {
+    async function fetchContact() {
+      const data = await getContacts();
+      setContactData(data);
+      setPending(false);
+    }
 
-      return sortDescriptor.direction === "descending" ? -cmp : cmp;
-    });
-  }, [sortDescriptor, items]);
+    fetchContact();
+  }, []);
 
-  const renderCell = useCallback(
-    (user: UserType, columnKey: keyof UserType) => {
-      const cellValue = user[columnKey];
+  const renderCell = useCallback((user: Contact, columnKey: string) => {
+    const cellValue = user[columnKey as keyof Contact] as string;
 
-      switch (columnKey) {
-        case "name":
-          return (
-            <User
-              avatarProps={{ radius: "full", size: "sm", src: user.avatar }}
-              classNames={{
-                description: "text-default-500",
-              }}
-              description={user.email}
-              name={cellValue}
-            >
-              {user.email}
-            </User>
-          );
-        case "company":
-          return (
-            <div className="flex flex-col">
-              <p className="text-bold text-small">
-                {cellValue.toString().toUpperCase()}
-              </p>
-            </div>
-          );
-        default:
-          return cellValue;
-      }
-    },
-    []
-  );
+    switch (columnKey) {
+      case 'firstName':
+        return (
+          <User
+            avatarProps={{ radius: 'full', size: 'sm', src: user.imgData }}
+            classNames={{
+              description: 'text-default-500',
+            }}
+            description={user.email}
+            name={user['firstName'] + ' ' + user['lastName']}
+          >
+            {user.phone}
+          </User>
+        );
+      case 'businessName':
+        return (
+          <div className="flex flex-col">
+            <p className="text-bold text-small">
+              {user['businessName']?.toString().toUpperCase()}
+            </p>
+          </div>
+        );
+      case 'actions':
+        return  (
+          <div className="relative flex items-end gap-2 h-4">
+            <Tooltip content="Details">
+              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                <EyeIcon />
+              </span>
+            </Tooltip>
+            <Tooltip content="Edit user">
+              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
+                <EditIcon />
+              </span>
+            </Tooltip>
+            <Tooltip color="danger" content="Delete user">
+              <span className="text-lg text-danger cursor-pointer active:opacity-50">
+                <DeleteIcon />
+              </span>
+            </Tooltip>
+          </div>
+        );
+      default:
+        return <p>{cellValue}</p>;
+    }
+  }, []);
 
   const onRowsPerPageChange = useCallback((e: any) => {
     setRowsPerPage(Number(e.target.value));
@@ -125,7 +167,7 @@ export default function ContactTable() {
       setNameFilterValue(value);
       setPage(1);
     } else {
-      setNameFilterValue("");
+      setNameFilterValue('');
     }
   }, []);
 
@@ -134,7 +176,7 @@ export default function ContactTable() {
       setCompanyFilterValue(value);
       setPage(1);
     } else {
-      setCompanyFilterValue("");
+      setCompanyFilterValue('');
     }
   }, []);
 
@@ -147,36 +189,36 @@ export default function ContactTable() {
             <Input
               isClearable
               classNames={{
-                base: "w-full sm:max-w-[44%]",
-                inputWrapper: "border-1",
+                base: 'w-full sm:max-w-[44%]',
+                inputWrapper: 'border-1',
               }}
               placeholder="Search by name..."
               size="sm"
               startContent={<SearchIcon className="text-default-300" />}
               value={nameFilterValue}
               variant="bordered"
-              onClear={() => setNameFilterValue("")}
+              onClear={() => setNameFilterValue('')}
               onValueChange={onNameSearchChange}
             />
             <Input
               isClearable
               classNames={{
-                base: "w-full sm:max-w-[44%]",
-                inputWrapper: "border-1",
+                base: 'w-full sm:max-w-[44%]',
+                inputWrapper: 'border-1',
               }}
               placeholder="Search by company...(fake)"
               size="sm"
               startContent={<SearchIcon className="text-default-300" />}
               value={companyFilterValue}
               variant="bordered"
-              onClear={() => setCompanyFilterValue("")}
+              onClear={() => setCompanyFilterValue('')}
               onValueChange={onCompanySearchChange}
             />
           </div>
         </div>
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            Total {users.length} users
+            ทั้งหมด {contactData.length} คน
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -198,6 +240,7 @@ export default function ContactTable() {
     onNameSearchChange,
     onCompanySearchChange,
     onRowsPerPageChange,
+    contactData.length,
   ]);
 
   const bottomContent = useMemo(() => {
@@ -206,7 +249,7 @@ export default function ContactTable() {
         <Pagination
           showControls
           classNames={{
-            cursor: "bg-foreground text-background",
+            cursor: 'bg-foreground text-background',
           }}
           color="default"
           isDisabled={hasNameSearchFilter || hasCompanySearchFilter}
@@ -216,8 +259,8 @@ export default function ContactTable() {
           onChange={setPage}
         />
         <span className="text-small text-default-400">
-          {selectedKeys === "all"
-            ? "All items selected"
+          {selectedKeys === 'all'
+            ? 'All items selected'
             : `${selectedKeys.size} of ${items.length} selected`}
         </span>
       </div>
@@ -233,23 +276,22 @@ export default function ContactTable() {
 
   const classNames = useMemo(
     () => ({
-      wrapper: ["max-h-[382px]", "max-w-3xl"],
-      th: ["bg-transparent", "text-default-500", "border-b", "border-divider"],
+      wrapper: ['max-h-[382px]', 'max-w-3xl'],
+      th: ['bg-transparent', 'text-default-500', 'border-b', 'border-divider'],
       td: [
         // changing the rows border radius
         // first
-        "group-data-[first=true]:first:before:rounded-none",
-        "group-data-[first=true]:last:before:rounded-none",
+        'group-data-[first=true]:first:before:rounded-none',
+        'group-data-[first=true]:last:before:rounded-none',
         // middle
-        "group-data-[middle=true]:before:rounded-none",
+        'group-data-[middle=true]:before:rounded-none',
         // last
-        "group-data-[last=true]:first:before:rounded-none",
-        "group-data-[last=true]:last:before:rounded-none",
+        'group-data-[last=true]:first:before:rounded-none',
+        'group-data-[last=true]:last:before:rounded-none',
       ],
     }),
     []
   );
-
   return (
     <Table
       isCompact
@@ -259,35 +301,32 @@ export default function ContactTable() {
       bottomContentPlacement="outside"
       checkboxesProps={{
         classNames: {
-          wrapper: "after:bg-foreground after:text-background text-background",
+          wrapper: 'after:bg-foreground after:text-background text-background',
         },
       }}
       classNames={classNames}
       selectedKeys={selectedKeys as Selection}
       selectionMode="multiple"
-      sortDescriptor={sortDescriptor}
       topContent={topContent}
       topContentPlacement="outside"
       onSelectionChange={(keys) => setSelectedKeys(keys)}
-      onSortChange={setSortDescriptor}
     >
       <TableHeader columns={headerColumns}>
         {(column) => (
           <TableColumn
             key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-            allowsSorting={column.sortable}
+            align={column.uid === 'actions' ? 'center' : 'start'}
           >
             {column.name}
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={"No users found"} items={sortedItems}>
+      <TableBody emptyContent={'No users found'} items={contactData}>
         {(item) => (
-          <TableRow key={item.id}>
+          <TableRow key={item.contactID}>
             {(columnKey) => (
               <TableCell>
-                {renderCell(item, columnKey as keyof UserType)}
+                {renderCell(item, columnKey as keyof Contact)}
               </TableCell>
             )}
           </TableRow>

@@ -1,9 +1,10 @@
 "use client";
+
 import { PlusIcon } from "@/components/icons";
 import ContactTable from "@/components/table/contactTable";
 import { Listbox, ListboxItem, cn } from "@nextui-org/react";
 import { Button } from "@nextui-org/button";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Selection } from "@react-types/shared";
 import { Key } from "@react-types/shared";
 import CreateContactForm from "@/components/form/createContactForm";
@@ -26,7 +27,7 @@ export default function Contact() {
         <p className="text-heading">ผู้ติดต่อ</p>
         <Button
           startContent={<PlusIcon />}
-          onPress={() => onOpen()}
+          onPress={() => onOpen()} 
           color="primary"
           className="w-fit justify-self-end"
         >

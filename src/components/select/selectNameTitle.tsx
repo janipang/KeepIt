@@ -2,9 +2,10 @@
 import { Select, SelectItem } from "@nextui-org/select";
 import { useEffect, useState } from "react";
 import { Selection } from "@react-types/shared";
+import { NameTitle } from "@/types/enum";
 
 interface Props {
-  onValueChange: (value: string) => void;
+  onValueChange: (value: NameTitle) => void;
 }
 
 export default function SelectNameTitle({ onValueChange }: Props) {
@@ -13,20 +14,20 @@ export default function SelectNameTitle({ onValueChange }: Props) {
   useEffect(() => {
     onValueChange(
       value === undefined
-        ? ""
+        ? NameTitle.NOT_SPECIFIED
         : value === "all"
-        ? "all"
+        ?  NameTitle.FEMALE
         : value.size
-        ? ((value.entries().next().value?.[0] as string) ?? "")
-        : ""
+        ? ((value.entries().next().value?.[0] as NameTitle) ?? "")
+        : NameTitle.NOT_SPECIFIED
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
   const options = [
-    { key: "นาย", label: "นาย" },
-    { key: "นาง", label: "นาง" },
-    { key: "นางสาว", label: "นางสาว" },
-    { key: "ไม่ระบุ", label: "ไม่ระบุ" },
+    { key: NameTitle.MALE, label: "นาย" },
+    { key: NameTitle.FEMALE, label: "นาง" },
+    { key: NameTitle.SINGLE_FEMALE, label: "นางสาว" },
+    { key: NameTitle.NOT_SPECIFIED, label: "ไม่ระบุ" },
   ];
   return (
     <Select

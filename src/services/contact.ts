@@ -2,37 +2,44 @@ import { Contact } from '@/types/Contact';
 import axios from 'axios';
 import { BACKEND_URL } from '@/constants/api';
 import { getCookie } from './cookie';
+import { BusinessType, ContactType, NameTitle } from '@/types/enum';
 
-export const getContacts = async () => {
+export const getContacts = async (): Promise<Contact[]> => {
+  const businessName = getCookie('BussinessName');
   try {
-    const response = await axios.get(`${BACKEND_URL}/contact`, {
-      headers: {
-        // businessId: getCookie('businessId'),
-        accessToken: getCookie('accessToken'),
-      },
-    });
-    if (response.status == 200) {
-      return response.data;
-    }
+    const response = await axios.get(
+      `${BACKEND_URL}/business/${businessName}/contacts`,
+      {
+        headers: {
+          Authorization: `Bearer ${getCookie('accessToken')}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log(response.data.content);
+    return response.data.content as Contact[];
   } catch (err) {
     console.log(err);
+    return [];
   }
-  return null;
 };
 
 export const getContactById = async (
   contactId: string
 ): Promise<Contact | null> => {
+  const businessName = getCookie('BussinessName');
   try {
-    const response = await axios.get(`${BACKEND_URL}/contact/${contactId}`, {
-      headers: {
-        // businessId: getCookie('businessId'),
-        accessToken: getCookie('accessToken'),
-      },
-    });
-    if (response.status == 200) {
-      return response.data as Contact;
-    }
+    const response = await axios.get(
+      `${BACKEND_URL}/business/${businessName}/contact/${contactId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${getCookie('accessToken')}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log(response.data);
+    return response.data.content as Contact;
   } catch (err) {
     console.log(err);
   }
@@ -40,19 +47,57 @@ export const getContactById = async (
 };
 
 export const postContact = async (
-  contact: Contact
+  contact:{
+    type: ContactType,
+    title: NameTitle,
+    businessType: BusinessType,
+    contactBusinessName: string,
+    firstName: string,
+    lastName: string,
+    phone: string,
+    address: string,
+    email: string,
+    taxID: string,
+    imgData: string,
+  }
 ): Promise<Contact | null> => {
+  const businessName = getCookie('BussinessName');
   try {
-    const response = await axios.post(`${BACKEND_URL}/contact`, {
-        headers: {
-          // businessId: getCookie('businessId'),
-          accessToken: getCookie('accessToken'),
-        },
+    const response = await axios.post(
+      `${BACKEND_URL}/business/${businessName}/contact`,
       contact,
-    });
-    return response.data;
+      {
+        headers: {
+          Authorization: `Bearer ${getCookie('accessToken')}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log(response.data);
+    return response.data.content;
   } catch (err) {
     console.log(err);
   }
   return null;
+};
+
+export const putContact = async (contact: Contact): Promise<boolean> => {
+  const businessName = getCookie('BussinessName');
+  try {
+    const response = await axios.post(
+      `${BACKEND_URL}/business/${businessName}/contact`,
+      {
+        headers: {
+          Authorization: `Bearer ${getCookie('accessToken')}`,
+          'Content-Type': 'application/json',
+        },
+        contact,
+      }
+    );
+    console.log(response.data);
+    return true;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
 };

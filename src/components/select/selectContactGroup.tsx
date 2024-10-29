@@ -1,10 +1,12 @@
 "use client";
+
 import { Select, SelectItem } from "@nextui-org/select";
 import { useEffect, useState } from "react";
 import { Selection } from "@react-types/shared";
+import { ContactType } from "@/types/enum";
 
 interface Props {
-  onValueChange: (value: string) => void;
+  onValueChange: (value: ContactType | "") => void;
 }
 
 export default function SelectContactGroup({
@@ -17,16 +19,16 @@ export default function SelectContactGroup({
       value === undefined
         ? ""
         : value === "all"
-        ? "all"
+        ? ""
         : value.size
-        ? ((value.entries().next().value?.[0] as string) ?? "")
+        ? ((value.entries().next().value?.[0] as ContactType) ?? "")
         : ""
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
   const options = [
-    { key: "customer", label: "ลูกค้า" },
-    { key: "provider", label: "ผู้ขาย" },
+    { key: ContactType.CLIENT, label: "ลูกค้า" },
+    { key: ContactType.SUPPLIER, label: "ผู้ขาย" },
   ];
   return (
     <Select
