@@ -1,11 +1,16 @@
+import { BusinessType, ContactType } from "./enum";
+
 export interface Contact{
-    id?: string;
-    group: "customer" | "provider" | "unknown";
-    type: "personal" | "enterprise";
-    name: string;
-    address: string;
+    contactID?: string;
+    type: ContactType;
+    businessType: BusinessType
+    businessName: string;
+    title: string;
+    firstName: string;
+    lastName: string;
     phone: string;
+    address: string;
     email: string;
-    entpId?: string;
-    headquarter?: "headquarter" | "branch" | "unknown";
+    taxID: string;
+    imgData: string;
 }

@@ -23,10 +23,18 @@ import { useRouter } from 'next/navigation';
 import MenuItem from '@/types/MenuItem';
 import Image from 'next/image';
 import { getCookie } from '@/services/cookie';
+import { useEffect, useState } from 'react';
 
 export default function Navbar() {
   const router = useRouter();
   const items: MenuItem[] = navData;
+
+  const [businessName, setBusinessName] = useState<string | null>(null);
+
+  useEffect(() => {
+    const name = decodeURIComponent(getCookie('BussinessName') as string);
+    setBusinessName(name);
+  }, []);
 
   return (
     <NextUINavbar maxWidth="2xl" position="sticky" className="px-10">
@@ -128,9 +136,7 @@ export default function Navbar() {
 
         <div className="flex gap-2 justify-self-end">
           <p className="h-6 w-6 rounded-full bg-accent"></p>
-          <p className="text-black">
-            {decodeURIComponent(getCookie("BussinessName") as string)}
-          </p>
+          <p className="text-black">{businessName}</p>
         </div>
       </NavbarContent>
     </NextUINavbar>

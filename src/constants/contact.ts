@@ -1,10 +1,10 @@
 const columns = [
-    { name: "เลขที่", uid: "id", sortable: true },
-    { name: "ชื่อ", uid: "name", sortable: true },
-    { name: "บริษัท", uid: "company", sortable: true },
-    { name: "อีเมล", uid: "email" },
-    { name: "เบอร์", uid: "phone" },
-    { name: "ความสัมพันธ์", uid: "relation" },
+    { name: "ประเภท", uid: "type", sortable: true },
+    { name: "ชื่อ-นามสกุล", uid: "user", sortable: true },
+    { name: "บริษัท", uid: "contactorBusinessName", sortable: true },
+    { name: "เบอร์บริษัท", uid: "contactorBusinessPhone", sortable: true },
+    { name: "เลขประจำตัวผู้เสียภาษี", uid: "taxID", sortable: true },
+    { name: "ที่อยู่", uid: "address", sortable: true },
     { name: "คำสั่ง", uid: "actions" },
 ];
 
@@ -23,6 +23,7 @@ export interface UserType{
     avatar: string;
     relation: string;
 }
+
 const users:UserType[] = [
     {
         id: 1,
