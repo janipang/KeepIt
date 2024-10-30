@@ -145,12 +145,12 @@ export default function ProductTable() {
                 <EyeIcon />
               </span>
             </Tooltip>
-            <Tooltip content="Edit user">
+            <Tooltip content="Edit product">
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                 <EditIcon />
               </span>
             </Tooltip>
-            <Tooltip color="danger" content="Delete user">
+            <Tooltip color="danger" content="Delete product">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
                 <DeleteIcon />
               </span>
@@ -326,7 +326,7 @@ export default function ProductTable() {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={'No users found'} items={productData}>
+      <TableBody emptyContent={'No products found'} items={productData}>
         {(item) => (
           <TableRow key={item.itemName}>
             {(columnKey) => (

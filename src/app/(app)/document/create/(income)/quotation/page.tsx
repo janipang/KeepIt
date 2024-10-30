@@ -15,11 +15,23 @@ import { Button } from '@nextui-org/react';
 import { products } from '@/constants/mock/product';
 import ProductEditTable from '@/components/table/product-edit-table';
 import BillBoard from '@/components/document/billboard';
+import { ProductInfo } from '@/types/Product';
+import { getProducts } from '@/services/product';
 
 export default function Quotation() {
   const router = useRouter();
   const price_tax = ['รวมภาษี', 'ไม่รวมภาษี'];
+  const [products, setProducts] = useState<ProductInfo[]>([]);
   const [discount, setDiscount] = useState<number>(0);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      const data = await getProducts();
+      setProducts(data);
+    }
+
+    fetchProducts();
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
