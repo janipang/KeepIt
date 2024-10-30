@@ -1,15 +1,20 @@
-"use client";
+'use client';
 
-import { PlusIcon } from "@/components/icons";
-import RecordsTable from "@/components/recordsTable";
-import { Listbox, ListboxItem, cn } from "@nextui-org/react";
-import { Button } from "@nextui-org/button";
-import { useEffect, useMemo, useState } from "react";
-import { Selection } from "@react-types/shared";
-import { Key } from "@react-types/shared";
-import CreateContactForm from "@/components/form/createContactForm";
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem } from "@nextui-org/dropdown";
-import CreateButton from "@/components/button/createButton";
+import { PlusIcon } from '@/components/icons';
+import RecordsTable from '@/components/recordsTable';
+import { Listbox, ListboxItem, cn } from '@nextui-org/react';
+import { Button } from '@nextui-org/button';
+import { useEffect, useMemo, useState } from 'react';
+import { Selection } from '@react-types/shared';
+import { Key } from '@react-types/shared';
+import CreateContactForm from '@/components/form/createContactForm';
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from '@nextui-org/dropdown';
+import CreateButton from '@/components/button/createButton';
 import { useRouter } from 'next/navigation';
 
 import {
@@ -19,7 +24,7 @@ import {
   ModalBody,
   ModalFooter,
   useDisclosure,
-} from "@nextui-org/modal";
+} from '@nextui-org/modal';
 
 export default function Contact() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -29,41 +34,54 @@ export default function Contact() {
   return (
     <>
       <div className="p-3 rounded-md shadow-md grid gap-3 grid-cols-[1fr_5fr] grid-rows-[40px_1fr] bg-gray-50">
-
-      
         <p className="text-heading">คลังเอกสาร</p>
 
         {/* Dropdown สำหรับสร้างเอกสาร */}
         <Dropdown>
           <DropdownTrigger>
             <Button
-  color="primary"
-  className="py-0.5 px-1 text-xs rounded-sm" // Reduce padding and border radius
-  style={{ fontSize: '0.65rem', padding: '0.15rem 0.3rem' }} // Further decrease font size and padding
->
-
-
-
+              color="primary"
+              className="py-0.5 px-1 text-xs rounded-sm" // Reduce padding and border radius
+              style={{ fontSize: '0.65rem', padding: '0.15rem 0.3rem' }} // Further decrease font size and padding
+            >
               สร้างเอกสาร
             </Button>
           </DropdownTrigger>
-          <DropdownMenu className="p-1 text-sm" style={{ minWidth: "150px" }}>
-            <DropdownItem key="quotation" onClick={() => router.push('/document/create/quotation')}>
+          <DropdownMenu className="p-1 text-sm" style={{ minWidth: '150px' }}>
+            <DropdownItem
+              key="quotation"
+              onClick={() => router.push('/document/create/quotation')}
+            >
               ใบเสนอราคา
             </DropdownItem>
-            <DropdownItem key="invoice" onClick={() => router.push('/document/create/invoice')}>
+            <DropdownItem
+              key="invoice"
+              onClick={() => router.push('/document/create/invoice')}
+            >
               ใบแจ้งหนี้
             </DropdownItem>
-            <DropdownItem key="receipt" onClick={() => router.push('/document/create/receipt')}>
+            <DropdownItem
+              key="receipt"
+              onClick={() => router.push('/document/create/receipt')}
+            >
               ใบเสร็จรับเงิน
             </DropdownItem>
-            <DropdownItem key="purchase-order" onClick={() => router.push('/document/create/purchase-order')}>
+            <DropdownItem
+              key="purchase-order"
+              onClick={() => router.push('/document/create/purchase-order')}
+            >
               ใบสั่งซื้อ
             </DropdownItem>
-            <DropdownItem key="product-purchase" onClick={() => router.push('/document/create/product-purchase')}>
+            <DropdownItem
+              key="product-purchase"
+              onClick={() => router.push('/document/create/product-purchase')}
+            >
               ซื้อสินค้า
             </DropdownItem>
-            <DropdownItem key="expense-record" onClick={() => router.push('/document/create/expense-record')}>
+            <DropdownItem
+              key="expense-record"
+              onClick={() => router.push('/document/create/expense-record')}
+            >
               บันทึกค่าใช้จ่าย
             </DropdownItem>
           </DropdownMenu>
@@ -99,7 +117,7 @@ export default function Contact() {
         <ModalContent>
           {(onClose) => (
             <>
-              <CreateContactForm onClose={onClose}/>
+              <CreateContactForm onClose={onClose} />
             </>
           )}
         </ModalContent>
