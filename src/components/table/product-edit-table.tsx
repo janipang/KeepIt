@@ -59,7 +59,7 @@ export default function ProductEditTable({
             >
               {products.map((product, index) => (
                 <SelectItem key={index} variant="bordered" value={product.id}>
-                  {product.name}
+                  {product.itemName}
                 </SelectItem>
               ))}
             </Select>

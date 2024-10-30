@@ -1,39 +1,69 @@
-import { ProductInfo } from "@/types/Product";
-import axios from "axios";
-import { BACKEND_URL } from "@/constants/api";
+import { ProductInfo } from '@/types/Product';
+import axios from 'axios';
+import { BACKEND_URL } from '@/constants/api';
+import { getCookie } from './cookie';
 
-export const getProducts = async () => {
-    try {
-      const response = await axios.get(`${BACKEND_URL}/product`);
-      if (response.status == 200) {
-        return response.data
+export const getProducts = async (): Promise<ProductInfo[]> => {
+  const businessName = getCookie('BussinessName');
+  try {
+    const response = await axios.get(
+      `${BACKEND_URL}/business/${businessName}/items`,
+      {
+        headers: {
+          Authorization: `Bearer ${getCookie('accessToken')}`,
+          'Content-Type': 'application/json',
+        },
       }
-    } catch (err) {
-      console.log(err);
-    }
-    return null
-  };
-
-export const getProductById = async (productId: string): Promise<ProductInfo | null> => {
-    try {
-        const response = await axios.get(`${BACKEND_URL}/product/${productId}`);
-        if (response.status == 200) {
-            return response.data as ProductInfo
-        }
-    } catch (err) {
-        console.log(err);
-    }
-    return null
+    );
+    console.log(response.data.content);
+    return response.data.content as ProductInfo[];
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
 };
 
-export const postProduct = async (contact: ProductInfo): Promise<ProductInfo | null> => {
-    try {
-        const response = await axios.post(`${BACKEND_URL}/product`, {
-            contact
-        });
-        return response.data
-    } catch (err) {
-        console.log(err);
-    }
-    return null
+export const getProductById = async (
+  productId: string
+): Promise<ProductInfo | null> => {
+  const businessName = getCookie('BussinessName');
+  try {
+    const response = await axios.get(
+      `${BACKEND_URL}/business/${businessName}/item/${productId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${getCookie('accessToken')}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log(response.data);
+    return response.data.content as ProductInfo;
+  } catch (err) {
+    console.log(err);
+  }
+  return null;
+};
+
+export const postProduct = async (
+  product: ProductInfo
+): Promise<ProductInfo | null> => {
+  const businessName = getCookie('BussinessName');
+  try {
+    const response = await axios.post(
+      `${BACKEND_URL}/business/${businessName}/item`,
+      product,
+      {
+        headers: {
+          Authorization: `Bearer ${getCookie('accessToken')}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log(response.data);
+    return response.data.content;
+  } catch (err) {
+    console.log(err);
+  }
+  return null;
 };

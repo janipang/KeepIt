@@ -26,7 +26,7 @@ export default function NewBusiness() {
     const enterprise: Enterprise = {
       registrationNumber: formData.get('registrationNumber') as string,
       name: formData.get('name') as string,
-      branch: 'main',
+      branch: 'สำนักงานใหญ่',
       address: formData.get('address') as string,
       phone: formData.get('phone') as string,
       taxID: formData.get('taxId') as string,
@@ -43,7 +43,7 @@ export default function NewBusiness() {
     }
   };
   return (
-    <div className="flex flex-col justify-center items-center p-8 gap-8 mx-auto my-10 w-4/5 h-2/3 md:w-1/2 md:h-3/4 bg-white/70 backdrop-blur-sm rounded-2xl ">
+    <div className="flex flex-col justify-center items-center p-8 gap-8 mx-auto my-10 w-4/5 h-2/3 md:w-1/2 md:h-3/4 bg-white/70 backdrop-blur-sm rounded-2xl animate-fade">
       <h1 className="text-2xl font-extrabold">NEW BUSINESS</h1>
       <div className="lex flex-col items-start gap-4 w-full">
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">

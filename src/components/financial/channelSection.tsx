@@ -17,15 +17,11 @@ interface Props {
 }
 
 export default function ChannelSection({ type, channels }: Props) {
-  const [hydrated, setHydrated] = useState(false);
+  const [pending, setPending] = useState(true);
 
   useEffect(() => {
-    setHydrated(true);
+    setPending(false);
   }, []);
-
-  if (!hydrated) {
-    return <Loading className="bg-opacity-0"/>;
-  }
 
   const title = {
     cash: 'เงินสด',
@@ -54,7 +50,7 @@ export default function ChannelSection({ type, channels }: Props) {
   return (
     <div className="flex flex-col gap-4">
       <h2 className="text-xl">{title[type]}</h2>
-      <div className="flex gap-8">
+      {!pending? <div className="flex gap-8">
         {channels.map((channel, index) => {
           const bank_provider: string =
             channel.type === 'bankaccount'
@@ -105,7 +101,7 @@ export default function ChannelSection({ type, channels }: Props) {
             </Card>
           );
         })}
-      </div>
+      </div>: <Loading/>}
     </div>
   );
 }
