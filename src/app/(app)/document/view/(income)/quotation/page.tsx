@@ -10,17 +10,16 @@ import { appendFile } from 'fs';
 import { PrintIcon } from '@/components/icons';
 
 export default function ViewQuotation() {
-  const [document, setDocument] = useState({});
+  const [document, setDocument] = useState<{ contact: string; products: string[]; }>({contact: "hello", products: ["hi","haha","hoya","waaw"]});
   const documentRef = useRef(null);
 
   useEffect(() => {
-    async function fetchDocumentData() {
-      // const data = getQuotationDetail();
-      const data = {};
-      setDocument(data);
-    }
+    // async function fetchDocumentData() {
+    //   const data = getQuotationDetail();
+    //   setDocument(data);
+    // }
 
-    fetchDocumentData();
+    // fetchDocumentData();
   }, []);
 
   async function handleGeneratePdf() {
