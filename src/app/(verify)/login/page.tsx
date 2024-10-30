@@ -1,5 +1,5 @@
 'use client';
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { getUserByUsername, postLogin } from '@/services/verify';
 import { Button } from '@nextui-org/button';
@@ -8,8 +8,11 @@ import { removeAllCookies, setCookie } from '@/services/cookie';
 import Link from 'next/link';
 
 export default function Login() {
-  removeAllCookies();
   const router = useRouter();
+
+  useEffect(() => {
+    removeAllCookies();
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,7 +38,7 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center p-8 gap-8 m-auto w-4/5 h-2/3 md:w-1/2 md:h-3/4 bg-white/70 backdrop-blur-sm rounded-2xl ">
+    <div className="flex flex-col justify-center items-center p-8 gap-8 m-auto w-4/5 h-2/3 md:w-1/2 md:h-3/4 bg-white/70 backdrop-blur-sm rounded-2xl animate-fade">
       <h1 className="p-4 text-heading">เข้าสู่ระบบ</h1>
       <div className="lex flex-col items-center gap-4 w-full">
         <form
@@ -63,7 +66,7 @@ export default function Login() {
           </Button>
         </form>
         <div className="p-4 my-4 flex justify-end gap-2 w-full">
-          <p>{"ยังไม่มีบัญชีผู้ใช้?"}</p>
+          <p>{'ยังไม่มีบัญชีผู้ใช้?'}</p>
           <Link href="/signup" className="text-primary underline">
             {' '}
             ลงทะเบียน

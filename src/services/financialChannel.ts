@@ -3,18 +3,8 @@ import axios from 'axios';
 import { BACKEND_URL } from '@/constants/api';
 import { FinancialChannel } from '@/types/FinancialChannel';
 import { financialChannels } from '@/constants/mock/channel';
-
-export const getFinancialChannel = async () => {
-  try {
-    const response = await axios.get(`${BACKEND_URL}/financial-channel`);
-    if (response.status == 200) {
-      return response.data;
-    }
-  } catch (err) {
-    console.log(err);
-  }
-  return null;
-};
+import { getCookie } from './cookie';
+import { TransactionType } from '@/types/enum';
 
 export const getFinancialChannelById = async (
   channelId: string
@@ -26,20 +16,6 @@ export const getFinancialChannelById = async (
     if (response.status == 200) {
       return response.data as FinancialChannel;
     }
-  } catch (err) {
-    console.log(err);
-  }
-  return null;
-};
-
-export const postFinancialChannel = async (
-  contact: FinancialChannel
-): Promise<FinancialChannel | null> => {
-  try {
-    const response = await axios.post(`${BACKEND_URL}/financial-channel`, {
-      contact,
-    });
-    return response.data;
   } catch (err) {
     console.log(err);
   }
@@ -104,4 +80,48 @@ export const getGroupedFinancialChannel = async () => {
   } else {
     return null;
   }
+};
+
+// --------------integrated with backend -------------
+
+export const getFinancialChannel = async () => {
+  const businessName = getCookie('BussinessName');
+  try {
+    const response = await axios.get(`${BACKEND_URL}/business/${businessName}/finance/transactions`);
+    if (response.status == 200) {
+      return response.data;
+    }
+  } catch (err) {
+    console.log(err);
+  }
+  return null;
+};
+
+export const postFinanceTransaction = async (
+  channel:{
+    financialChannelID: string,
+    documentReference?: string,
+    transactionType: TransactionType,
+    amount: string,
+    comment?: string,
+  }
+): Promise<boolean> => {
+  const businessName = getCookie('BussinessName');
+  try {
+    const response = await axios.post(
+      `${BACKEND_URL}/business/${businessName}/finance/transaction`,
+      channel,
+      {
+        headers: {
+          Authorization: `Bearer ${getCookie('accessToken')}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log(response.data);
+    return true;
+  } catch (err) {
+    console.log(err);
+  }
+  return false;
 };
