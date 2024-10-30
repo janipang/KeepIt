@@ -4,6 +4,8 @@ import { BACKEND_URL } from '@/constants/api';
 import { getCookie } from './cookie';
 import { BusinessType, ContactType, NameTitle } from '@/types/enum';
 
+// ------------- integrated with backend --------------------
+
 export const getContacts = async (): Promise<Contact[]> => {
   const businessName = getCookie('BussinessName');
   try {
@@ -79,25 +81,4 @@ export const postContact = async (
     console.log(err);
   }
   return null;
-};
-
-export const putContact = async (contact: Contact): Promise<boolean> => {
-  const businessName = getCookie('BussinessName');
-  try {
-    const response = await axios.post(
-      `${BACKEND_URL}/business/${businessName}/contact`,
-      {
-        headers: {
-          Authorization: `Bearer ${getCookie('accessToken')}`,
-          'Content-Type': 'application/json',
-        },
-        contact,
-      }
-    );
-    console.log(response.data);
-    return true;
-  } catch (err) {
-    console.log(err);
-    return false;
-  }
 };

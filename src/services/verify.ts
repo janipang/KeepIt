@@ -115,7 +115,7 @@ export const postLogin = async (username: string, password: string) => {
     });
     return response.data.content; //return access token
   } catch (err: any) {
-    if (err.response && err.response.status == 400) {
+    if (err.response) {
       alert(err.response.data.message);
       return false;
     }
@@ -143,7 +143,7 @@ export const postRegister = async (
     console.log(response);
     return response.data.content; //return access token
   } catch (err: any) {
-    if (err.response && (err.response.status == 400 || err.response.status == 409)) {
+    if (err.response) {
       alert(err.response.data.message);
       return false;
     }
