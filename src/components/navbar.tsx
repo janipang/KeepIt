@@ -24,6 +24,7 @@ import MenuItem from '@/types/MenuItem';
 import Image from 'next/image';
 import { getCookie } from '@/services/cookie';
 import { useEffect, useState } from 'react';
+import { Avatar } from '@nextui-org/react';
 
 export default function Navbar() {
   const router = useRouter();
@@ -135,7 +136,11 @@ export default function Navbar() {
         </nav>
 
         <div className="flex gap-2 justify-self-end">
-          <p className="h-6 w-6 rounded-full bg-accent"></p>
+          <Avatar
+            alt={`company-logo`}
+            className="w-6 h-6"
+            src="/company-logo/logo-3.png"
+          />
           <p className="text-black">{businessName}</p>
         </div>
       </NavbarContent>

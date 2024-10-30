@@ -33,7 +33,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center p-8 gap-8 m-auto w-4/5 h-2/3 md:w-1/2 md:h-3/4 bg-white/70 backdrop-blur-sm rounded-2xl ">
+    <div className="flex flex-col justify-center items-center p-8 gap-8 m-auto w-4/5 h-2/3 md:w-1/2 md:h-3/4 bg-white/70 backdrop-blur-sm rounded-2xl animate-fade">
       <h1 className="p-4 my-4 text-heading">ลงทะเบียน</h1>
       <form
         onSubmit={handleSubmit}

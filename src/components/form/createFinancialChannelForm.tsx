@@ -10,7 +10,7 @@ import {
   EWallet,
   FinancialChannel,
 } from '@/types/FinancialChannel';
-import { postFinancialChannel } from '@/services/financialChannel';
+import { postFinanceTransaction } from '@/services/financialChannel';
 import CashAccountForm from './financial-form/cash-account-form';
 import BankAccountForm from './financial-form/bank-account-form';
 import EWalletAccountForm from './financial-form/e-wallet-account-form';
@@ -82,7 +82,8 @@ const CreateFinancialChannelForm: React.FC<Props> = ({
         account: new_account,
       };
       if (await validateFinancialAccount(channel)) {
-        const new_channel = await postFinancialChannel(channel);
+        // const new_channel = await postFinanceTransaction(channel);
+        const new_channel = "";
 
         if (new_channel) {
           router.push('/financial');
