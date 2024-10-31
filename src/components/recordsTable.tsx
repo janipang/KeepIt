@@ -14,45 +14,44 @@ import {
   SortDescriptor,
   Tooltip,
 } from '@nextui-org/react';
-import { DeleteIcon, SearchIcon } from '../icons';
+import { DeleteIcon, SearchIcon } from './icons';
 import { Selection } from '@react-types/shared';
 import { Key } from '@react-types/shared';
 import { Contact } from '@/types/Contact';
 import { getContacts } from '@/services/contact';
-import Loading from '../loading';
-import { EditIcon, EyeIcon } from '../icons';
-import { getProducts } from '@/services/product';
-import { ProductInfo } from '@/types/Product';
+import Loading from './loading';
+import { EditIcon, EyeIcon } from './icons';
 
 const INITIAL_VISIBLE_COLUMNS = [
-  'name', //img + name + description
-  'type', // สินค้า หรือ บริการ
-  'price',
-  'amount', // amount + unit type
+  'firstName',
+  'businessName',
+  'phone',
+  // 'taxID',
+  // 'address',
   'actions',
 ];
 
 const columns = [
-  { name: 'ชื่อสินค้า', uid: 'name' },
-  { name: 'ประเภท', uid: 'type' },
-  { name: 'ราคา/หน่วย', uid: 'price' },
-  { name: 'จำนวน', uid: 'amount' },
+  { name: 'ชื่อไฟล์', uid: 'firstName' },
+  { name: 'วันที่อัปโหลด', uid: 'businessName' },
+  { name: 'ประเภท', uid: 'phone' },
+  { name: 'ผู้อัปโหลด', uid: 'taxID' },
   { name: 'คำสั่ง', uid: 'actions' },
 ];
 
-export default function ProductTable() {
+export default function ContactTable() {
   const [nameFilterValue, setNameFilterValue] = useState('');
   const [companyFilterValue, setCompanyFilterValue] = useState('');
   const [selectedKeys, setSelectedKeys] = useState<Selection>(new Set<Key>());
   const [visibleColumns, setVisibleColumns] = useState(
     new Set(INITIAL_VISIBLE_COLUMNS)
   );
-  const [productData, setProductData] = useState<ProductInfo[]>([]);
+  const [contactData, setContactData] = useState<Contact[]>([]);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [page, setPage] = useState(1);
   const [pending, setPending] = useState<boolean>(true);
 
-  const pages = Math.ceil(productData.length / rowsPerPage);
+  const pages = Math.ceil(contactData.length / rowsPerPage);
 
   const hasNameSearchFilter = Boolean(nameFilterValue);
   const hasCompanySearchFilter = Boolean(companyFilterValue);
@@ -64,20 +63,31 @@ export default function ProductTable() {
   }, [visibleColumns]);
 
   const filteredItems = useMemo(() => {
-    let filteredUsers = [...productData];
+    let filteredUsers = [...contactData];
 
-    if (hasNameSearchFilter) {
+    if (hasNameSearchFilter || hasCompanySearchFilter) {
       filteredUsers = filteredUsers.filter(
-        (product) =>
-          product.itemName.toLowerCase().includes(nameFilterValue.toLowerCase())
-        // && product.itemDescription
-        // .toLowerCase()
-        // .includes(companyFilterValue.toLowerCase())
+        (user) =>
+          (user.firstName
+            .toLowerCase()
+            .includes(nameFilterValue.toLowerCase()) ||
+            user.lastName
+              .toLowerCase()
+              .includes(nameFilterValue.toLowerCase())) &&
+          user.businessName
+            .toLowerCase()
+            .includes(companyFilterValue.toLowerCase())
       );
     }
 
     return filteredUsers;
-  }, [nameFilterValue, , hasNameSearchFilter, , productData]);
+  }, [
+    nameFilterValue,
+    companyFilterValue,
+    hasNameSearchFilter,
+    hasCompanySearchFilter,
+    contactData,
+  ]);
 
   const items = useMemo(() => {
     const start = (page - 1) * rowsPerPage;
@@ -87,53 +97,37 @@ export default function ProductTable() {
   }, [page, filteredItems, rowsPerPage]);
 
   useEffect(() => {
-    async function fetchProduct() {
-      const data = await getProducts();
-      setProductData(data);
+    async function fetchContact() {
+      const data = await getContacts();
+      setContactData(data);
       setPending(false);
     }
 
-    fetchProduct();
+    fetchContact();
   }, []);
 
-  const renderCell = useCallback((product: ProductInfo, columnKey: string) => {
-    const cellValue = product[columnKey as keyof ProductInfo] as string;
+  const renderCell = useCallback((user: Contact, columnKey: string) => {
+    const cellValue = user[columnKey as keyof Contact] as string;
 
     switch (columnKey) {
-      case 'name':
+      case 'firstName':
         return (
           <User
-            // avatarProps={{ radius: 'full', size: 'sm', src: product.imgData }}
-            avatarProps={{ radius: 'full', size: 'sm', src: "https://github.com/user-attachments/assets/5beef5f4-f331-44e8-bb48-15fd7d5de2b3" }}
+            avatarProps={{ radius: 'full', size: 'sm', src: user.imgData }}
             classNames={{
               description: 'text-default-500',
             }}
-            description={product.itemDescription}
-            name={product.itemName}
-            className='max-w-lg'
-          />
+            description={user.email}
+            name={user['firstName'] + ' ' + user['lastName']}
+          >
+            {user.phone}
+          </User>
         );
-        case 'type':
-          return (
-            <div className="flex flex-col">
-              <p className="text-bold text-small">
-                {product.itemType}
-              </p>
-            </div>
-          );
-        case 'price':
-          return (
-            <div className="flex flex-col">
-              <p className="text-bold text-small">
-                {product.quantity + ' ' + 'บาท'}
-              </p>
-            </div>
-          );
-      case 'amount':
+      case 'businessName':
         return (
           <div className="flex flex-col">
             <p className="text-bold text-small">
-              {product.quantity + ' ' + product.unitType}
+              {user['businessName']?.toString().toUpperCase()}
             </p>
           </div>
         );
@@ -145,12 +139,12 @@ export default function ProductTable() {
                 <EyeIcon />
               </span>
             </Tooltip>
-            <Tooltip content="Edit product">
+            <Tooltip content="Edit user">
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                 <EditIcon />
               </span>
             </Tooltip>
-            <Tooltip color="danger" content="Delete product">
+            <Tooltip color="danger" content="Delete user">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
                 <DeleteIcon />
               </span>
@@ -188,30 +182,13 @@ export default function ProductTable() {
   const topContent = useMemo(() => {
     return (
       <div className="flex flex-col gap-4">
-        <div className="flex justify-between gap-3 items-end">
-          <p>สินค้าทั้งหมด :</p>
-          <div className="flex gap-2 justify-end">
+        <div className="flex justify-between gap-2 items-end w-full">
+          <p></p>
+          <div className="flex gap-2 justify-end w-full">
             <Input
               isClearable
-              classNames={{
-                base: 'w-full sm:max-w-[44%]',
-                inputWrapper: 'border-1',
-              }}
-              placeholder="Search by name..."
-              size="sm"
-              startContent={<SearchIcon className="text-default-300" />}
-              value={nameFilterValue}
-              variant="bordered"
-              onClear={() => setNameFilterValue('')}
-              onValueChange={onNameSearchChange}
-            />
-            <Input
-              isClearable
-              classNames={{
-                base: 'w-full sm:max-w-[44%]',
-                inputWrapper: 'border-1',
-              }}
-              placeholder="Search by description"
+              className="w-full sm:w-[40%] max-w-[350px] border-1"
+              placeholder="ค้นหาด้วยชื่อไฟล์, ผู้นำเข้า"
               size="sm"
               startContent={<SearchIcon className="text-default-300" />}
               value={companyFilterValue}
@@ -221,9 +198,10 @@ export default function ProductTable() {
             />
           </div>
         </div>
+
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
-            ทั้งหมด {productData.length} ชิ้น
+            ทั้งหมด {contactData.length} คน
           </span>
           <label className="flex items-center text-default-400 text-small">
             Rows per page:
@@ -240,12 +218,11 @@ export default function ProductTable() {
       </div>
     );
   }, [
-    nameFilterValue,
     companyFilterValue,
-    onNameSearchChange,
+    // onNameSearchChange,
     onCompanySearchChange,
     onRowsPerPageChange,
-    productData.length,
+    contactData.length,
   ]);
 
   const bottomContent = useMemo(() => {
@@ -326,12 +303,12 @@ export default function ProductTable() {
           </TableColumn>
         )}
       </TableHeader>
-      <TableBody emptyContent={'No products found'} items={productData}>
+      <TableBody emptyContent={'No users found'} items={contactData}>
         {(item) => (
-          <TableRow key={item.itemName}>
+          <TableRow key={item.contactID}>
             {(columnKey) => (
               <TableCell>
-                {renderCell(item, columnKey as keyof ProductInfo)}
+                {renderCell(item, columnKey as keyof Contact)}
               </TableCell>
             )}
           </TableRow>

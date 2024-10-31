@@ -13,7 +13,7 @@ import { postQuotation } from '@/services/createDocument';
 import Document from '@/components/document';
 import { Button } from '@nextui-org/react';
 import { products } from '@/constants/mock/product';
-import ProductEditTable from '@/components/table/product-edit-table';
+import ProductEditTable, { SelectedProductType } from '@/components/table/product-edit-table';
 import BillBoard from '@/components/document/billboard';
 
 export default function ExpenseRecord() {
@@ -26,6 +26,11 @@ export default function ExpenseRecord() {
     'ค่ายาม',
   ];
   const [discount, setDiscount] = useState<number>(0);
+  const [amount, setAmount] = useState<number[]>([0]);
+  const [selectedProducts, setSelectedProducts] = useState<
+    (SelectedProductType | null)[]
+  >([null]);
+
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -166,7 +171,13 @@ export default function ExpenseRecord() {
             </div>
             <div>
               {/* table of selected products */}
-              <ProductEditTable products={products} />
+              <ProductEditTable
+                products={products}
+                selectedProducts={selectedProducts}
+                setSelectedProducts={setSelectedProducts}
+                amount={amount}
+                setAmount={setAmount}
+              />
               {/* table action group */}
               <div>
                 <Button
