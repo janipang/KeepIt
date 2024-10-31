@@ -132,7 +132,7 @@ export default function ContactTable() {
           </div>
         );
       case 'actions':
-        return  (
+        return (
           <div className="relative flex items-end gap-2 h-4">
             <Tooltip content="Details">
               <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
@@ -183,23 +183,21 @@ export default function ContactTable() {
     return (
       <div className="flex flex-col gap-4">
         <div className="flex justify-between gap-2 items-end w-full">
-  <p></p>
-  <div className="flex gap-2 justify-end w-full">
-    <Input
-      isClearable
-      className="w-full sm:w-[40%] max-w-[350px] border-1"
-      placeholder="ค้นหาด้วยชื่อไฟล์, ผู้นำเข้า"
-      size="sm"
-      startContent={<SearchIcon className="text-default-300" />}
-      value={companyFilterValue}
-      variant="bordered"
-      onClear={() => setCompanyFilterValue('')}
-      onValueChange={onCompanySearchChange}
-    />
-  </div>
-</div>
-
-
+          <p></p>
+          <div className="flex gap-2 justify-end w-full">
+            <Input
+              isClearable
+              className="w-full sm:w-[40%] max-w-[350px] border-1"
+              placeholder="ค้นหาด้วยชื่อไฟล์, ผู้นำเข้า"
+              size="sm"
+              startContent={<SearchIcon className="text-default-300" />}
+              value={companyFilterValue}
+              variant="bordered"
+              onClear={() => setCompanyFilterValue('')}
+              onValueChange={onCompanySearchChange}
+            />
+          </div>
+        </div>
 
         <div className="flex justify-between items-center">
           <span className="text-default-400 text-small">
@@ -220,9 +218,8 @@ export default function ContactTable() {
       </div>
     );
   }, [
-    nameFilterValue,
     companyFilterValue,
-    onNameSearchChange,
+    // onNameSearchChange,
     onCompanySearchChange,
     onRowsPerPageChange,
     contactData.length,

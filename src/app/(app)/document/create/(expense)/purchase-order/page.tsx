@@ -11,13 +11,17 @@ import { Select, SelectItem } from '@nextui-org/react';
 import { Textarea } from '@nextui-org/input';
 import Document from '@/components/document';
 import { PlusIcon } from '@/components/icons';
-import ProductEditTable from '@/components/table/product-edit-table';
+import ProductEditTable, { SelectedProductType } from '@/components/table/product-edit-table';
 import { products } from '@/constants/mock/product';
 import { PurchaseInfo } from '@/types/DocumentInfo';
 
 export default function PurchaseOrder() {
   const router = useRouter();
   const price_tax = ['รวมภาษี', 'ไม่รวมภาษี'];
+  const [amount, setAmount] = useState<number[]>([0]);
+  const [selectedProducts, setSelectedProducts] = useState<
+    (SelectedProductType | null)[]
+  >([null]);
   const [discount, setDiscount] = useState<number>(0);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -182,7 +186,13 @@ export default function PurchaseOrder() {
             </div>
             <div>
               {/* table of selected products */}
-              <ProductEditTable products={products} />
+              <ProductEditTable
+                products={products}
+                selectedProducts={selectedProducts}
+                setSelectedProducts={setSelectedProducts}
+                amount={amount}
+                setAmount={setAmount}
+              />
               {/* table action group */}
               <div>
                 <Button

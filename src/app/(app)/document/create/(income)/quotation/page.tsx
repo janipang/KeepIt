@@ -11,18 +11,27 @@ import { useRouter } from 'next/navigation';
 import { QuotationInfo } from '@/types/DocumentInfo';
 import { postQuotation } from '@/services/createDocument';
 import Document from '@/components/document';
-import { Button } from '@nextui-org/react';
+import { Avatar, Button, DateValue } from '@nextui-org/react';
 import { products } from '@/constants/mock/product';
-import ProductEditTable from '@/components/table/product-edit-table';
+import ProductEditTable, {
+  SelectedProductType,
+} from '@/components/table/product-edit-table';
 import BillBoard from '@/components/document/billboard';
 import { ProductInfo } from '@/types/Product';
 import { getProducts } from '@/services/product';
+import { Contact } from '@/types/Contact';
+import { getContacts } from '@/services/contact';
 
 export default function Quotation() {
   const router = useRouter();
   const price_tax = ['รวมภาษี', 'ไม่รวมภาษี'];
   const [products, setProducts] = useState<ProductInfo[]>([]);
-  const [discount, setDiscount] = useState<number>(0);
+  const [amount, setAmount] = useState<number[]>([0]);
+  const [selectedProducts, setSelectedProducts] = useState<
+    (SelectedProductType | null)[]
+  >([null]);
+  const [customer, setCustomer] = useState<Contact | null>(null);
+  const [contacts, setContacts] = useState<Contact[]>([]);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -30,6 +39,12 @@ export default function Quotation() {
       setProducts(data);
     }
 
+    async function fetchContact() {
+      const data = await getContacts();
+      setContacts(data);
+    }
+
+    fetchContact();
     fetchProducts();
   }, []);
 
@@ -61,9 +76,23 @@ export default function Quotation() {
     if (status == 'ok' || status == 'ok with data') {
       router.push('/home');
     } else {
-      alert('re submit form!');
+      router.push('/document/view/quotation');
     }
   };
+
+  function getCustomerFromId(id: string): Contact {
+    let result = contacts.find((customer) => customer.contactID === id);
+    if (result) {
+      return result;
+    } else {
+      return contacts[0];
+    }
+  }
+
+  function HandleCustomerSelected(id: string) {
+    console.log(id);
+    setCustomer(getCustomerFromId(id));
+  }
 
   return (
     <div className="w-full flex flex-col gap-8 justify-start items-center p-4 md:p-6 lg:px-12">
@@ -89,13 +118,42 @@ export default function Quotation() {
           <div className="grid grid-cols-[2fr_8fr] gap-4">
             <h2 className="w-full">ข้อมูลลูกค้า</h2>
             <div className="grid grid-cols-[1fr_1fr_1fr] gap-4">
-              <Input
+              {/* <Input
                 name="customer_name"
                 type="text"
                 label="ชื่อลูกค้า"
                 variant="bordered"
                 className="w-full"
-              />
+              /> */}
+              <Select
+                label="ผู้ติดต่อ"
+                variant="bordered"
+                className="max-w-lg w-full"
+              >
+                {contacts.map((contact, index) => (
+                  <SelectItem
+                    key={index}
+                    variant="bordered"
+                    value={contact.contactID}
+                    // value={contact.businessName && contact.businessName !== '-'
+                    //   ? contact.businessName
+                    //   : contact.firstName}
+                  >
+                    
+                    {contact.businessName && contact.businessName !== '-'
+                        ? contact.businessName
+                        : contact.firstName}
+                    {/* <div className="flex gap-4">
+                      <Avatar src={contact.imgData} />
+                      <p className="my-auto">
+                        {contact.businessName && contact.businessName !== '-'
+                          ? contact.businessName
+                          : contact.firstName}
+                      </p>
+                    </div> */}
+                  </SelectItem>
+                ))}
+              </Select>
               <DatePicker
                 name="created_date"
                 label="วันที่ออก"
@@ -112,6 +170,7 @@ export default function Quotation() {
                 name="customer_address"
                 type="text"
                 label="ที่อยู่"
+                value={customer?.address}
                 variant="bordered"
                 className="col-span-2 full"
               />
@@ -119,6 +178,7 @@ export default function Quotation() {
                 name="customer_phone"
                 type="text"
                 label="เบอร์โทร"
+                value={customer?.phone}
                 variant="bordered"
                 className="full"
               />
@@ -153,13 +213,23 @@ export default function Quotation() {
             </div>
             <div>
               {/* table of selected products */}
-              <ProductEditTable products={products} />
+              <ProductEditTable
+                products={products}
+                selectedProducts={selectedProducts}
+                setSelectedProducts={setSelectedProducts}
+                amount={amount}
+                setAmount={setAmount}
+              />
               {/* table action group */}
               <div>
                 <Button
                   variant="solid"
                   color="primary"
                   startContent={<PlusIcon />}
+                  onClick={() => {
+                    setSelectedProducts([...selectedProducts, null]);
+                    setAmount([...amount, 1]);
+                  }}
                 >
                   เพิ่มรายการใหม่
                 </Button>
@@ -175,13 +245,13 @@ export default function Quotation() {
               <BillBoard
                 variant="light"
                 title="ส่วนลดรวม"
-                amount={discount}
+                amount={0}
                 unit="บาท"
               />
               <BillBoard
                 variant="primary"
                 title="จำนวนเงินทั้งสิ้น"
-                amount={discount}
+                amount={12000}
                 unit="บาท"
               />
             </div>

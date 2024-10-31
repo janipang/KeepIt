@@ -8,18 +8,19 @@ import html2canvas from 'html2canvas';
 import { Button } from '@nextui-org/react';
 import { appendFile } from 'fs';
 import { PrintIcon } from '@/components/icons';
+import { getQuotationById } from '@/services/getDocument';
 
 export default function ViewQuotation() {
-  const [document, setDocument] = useState<{ contact: string; products: string[]; }>({contact: "hello", products: ["hi","haha","hoya","waaw"]});
+  const [document, setDocument] = useState<any>(null);
   const documentRef = useRef(null);
 
   useEffect(() => {
-    // async function fetchDocumentData() {
-    //   const data = getQuotationDetail();
-    //   setDocument(data);
-    // }
+    async function fetchDocumentData() {
+      const data = await getQuotationById("QO00000000569");
+      setDocument(data);
+    }
 
-    // fetchDocumentData();
+    fetchDocumentData();
   }, []);
 
   async function handleGeneratePdf() {
