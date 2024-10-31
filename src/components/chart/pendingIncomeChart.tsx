@@ -34,24 +34,24 @@ const chartConfig = {
   visitors: {
     label: "Visitors",
   },
-  chrome: {
-    label: "Chrome",
+  'chrome': {
+    label: "ธ.กรุงศรี",
     color: "hsl(var(--chart-1))",
   },
-  safari: {
-    label: "Safari",
+  'safari': {
+    label: "ธ.กรุงไทย",
     color: "hsl(var(--chart-2))",
   },
-  firefox: {
-    label: "Firefox",
+  'firefox': {
+    label: "true-wallet",
     color: "hsl(var(--chart-3))",
   },
-  edge: {
-    label: "Edge",
+  'edge': {
+    label: "เงินสด",
     color: "hsl(var(--chart-4))",
   },
-  other: {
-    label: "Other",
+  'other': {
+    label: "อื่นๆ",
     color: "hsl(var(--chart-5))",
   },
 } satisfies ChartConfig;
@@ -61,7 +61,7 @@ export default function PendingIncomeChart() {
     <Card className="flex flex-col w-full h-4/5 max-h-[500px]">
       <CardHeader className="items-start">
         <CardTitle>รอรับชำระ</CardTitle>
-        <CardDescription>January - December 2024</CardDescription>
+        <CardDescription>มกราคม - สิงหาคม 2024</CardDescription>
       </CardHeader>
       <CardContent className="p-0 w-full flex-grow">
         <ChartContainer

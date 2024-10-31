@@ -14,14 +14,14 @@ import {
 export const description = "A multiple line chart";
 
 const chartData = [
-  { month: "January", รายได้: 186, ค่าใช้จ่าย: 80 },
-  { month: "February", รายได้: 305, ค่าใช้จ่าย: 200 },
-  { month: "March", รายได้: 237, ค่าใช้จ่าย: 120 },
-  { month: "April", รายได้: 73, ค่าใช้จ่าย: 190 },
-  { month: "May", รายได้: 209, ค่าใช้จ่าย: 130 },
-  { month: "June", รายได้: 214, ค่าใช้จ่าย: 250 },
-  { month: "July", รายได้: 322, ค่าใช้จ่าย: 302 },
-  { month: "August", รายได้: 367, ค่าใช้จ่าย: 350 },
+  { month: "มกราคม", รายได้: 22500, ค่าใช้จ่าย: 18000 },
+  { month: "กุมภาพันธ์", รายได้: 35000, ค่าใช้จ่าย: 17000 },
+  { month: "มีนาคม", รายได้: 32000, ค่าใช้จ่าย: 25000 },
+  { month: "เมษายน", รายได้: 38000, ค่าใช้จ่าย: 29500 },
+  { month: "พฤษภาคม", รายได้: 21000, ค่าใช้จ่าย: 28000 },
+  { month: "มิถุนายน", รายได้: 26000, ค่าใช้จ่าย: 29000 },
+  { month: "กรกฎาคม", รายได้: 35000, ค่าใช้จ่าย: 35000 },
+  { month: "สิงหาคม", รายได้: 42000, ค่าใช้จ่าย: 32000 },
 ];
 
 const chartConfig = {
@@ -39,7 +39,7 @@ export default function OverallChart() {
   return (
     <>
       <div className="h-[100px] flex flex-row justify-between">
-        <div>ต้องมีมั้ยนะ</div>
+        <div className="px-6 py-2 rounded-full bg-[hsl(var(--chart-1))] shadow-md h-fit text-white font-bold">ปี 2024 ตั้งแต่เดือน: มกราคม ถึงเดือน: สิงหาคม</div>
         <div className="h-full flex flex-row gap-6">
         <div className="flex flex-col items-end"><span className="w-16 h-2 rounded-2xl bg-[hsl(var(--chart-5))]"></span><p>รายได้</p></div>
           <div className="flex flex-col items-end"><span className="w-16 h-2 rounded-2xl bg-[hsl(var(--chart-3))]"></span><p>ค่าใช้จ่าย</p></div>
